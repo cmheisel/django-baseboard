@@ -89,9 +89,6 @@ class DashboardUnitTests(BaseboardTestHelper):
 
         self.assertEqual(actual, expected)
 
-def runtests():
-    import os
-    os.system("django-admin.py test baseboard --verbosity=0")
-
 if __name__ == "__main__":
-    runtests()
+    from baseboard.runtests import run_tests
+    run_tests(["baseboard"])
