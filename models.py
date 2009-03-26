@@ -2,7 +2,11 @@ from django.db import models
 
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
-    pass
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    project_id = models.IntegerField()
+    description = models.TextField(blank=True)
+    
 
 class Dashboard(models.Model):
     """A collection of projects."""

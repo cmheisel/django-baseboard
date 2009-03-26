@@ -26,6 +26,30 @@ class BaseboardTestHelper(TestCase):
         else:
             return self.object_index() #Recurse until you find an unused integer
 
+class ProjectUnitTests(BaseboardTestHelper):
+    def create_project(self, save=True, **kwargs):
+        index = self.object_index()
+        if not kwargs:
+            kwargs = dict(name="Test Project %s" % index,
+                          slug="test-project-%s" %index,
+                          project_id=index)
+        p = Project(**kwargs)
+
+        if not save: return p
+
+        p.save()
+        self.assert_(p.id)
+        return p
+            
+    def test_create_project(self):
+        p = self.create_project()
+        self.assertNotEqual(None, p.id)
+
+        p = self.create_project(save=False)
+        self.assertEqual(None, p.id)
+        p.save()
+        self.assert_(p.id)
+
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):
         """Create a Dashboard object, using the optional kwargs. If save=False the object is returned without saving."""
