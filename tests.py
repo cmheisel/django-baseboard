@@ -2,6 +2,7 @@ import random
 
 from django.test import TestCase
 
+from basecampreporting.mocks import TestProject
 from baseboard.models import Project, Dashboard
 
 class BaseboardTestHelper(TestCase):
@@ -27,7 +28,25 @@ class BaseboardTestHelper(TestCase):
             return self.object_index() #Recurse until you find an unused integer
 
 class ProjectUnitTests(BaseboardTestHelper):
+    def setUp(self):
+        super(ProjectUnitTests, self).setUp()
+        self._mock_basecamp_access()
+
+    def tearDown(self):
+        self._unmock_basecamp_access()
+
+
+    def _mock_basecamp_access(self):
+        """Monkey patches Project.Basecamp for testing."""
+        self._real_Basecamp = Project.Basecamp
+        Project.Basecamp = TestProject
+
+    def _unmock_basecamp_access(self):
+        """Undoes the Project.Basecamp monkeypatching."""
+        Project.Basecamp = self._real_Basecamp
+    
     def create_project(self, save=True, **kwargs):
+        """Creates a Project instance, using valid test defaults unless overridden in **kwargs."""
         index = self.object_index()
         if not kwargs:
             kwargs = dict(name="Test Project %s" % index,

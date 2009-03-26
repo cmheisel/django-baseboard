@@ -1,12 +1,15 @@
 from django.db import models
 
+from basecampreporting.project import Project as Basecamp
+
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
-    name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     project_id = models.IntegerField()
+    name = models.CharField(max_length=255, blank=True)    
     description = models.TextField(blank=True)
     
+    Basecamp = Basecamp
 
 class Dashboard(models.Model):
     """A collection of projects."""
