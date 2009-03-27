@@ -5,13 +5,18 @@ from basecampreporting.project import Project as BasecampProject
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
     slug = models.SlugField(unique=True)
-    basecamp_id = models.IntegerField()
-    basecamp_url = models.URLField(verify_exists=False)
-
-    name = models.CharField(max_length=255, blank=True)    
+    basecamp_url = models.URLField(verify_exists=False, unique=True)
+    basecamp_id = models.IntegerField(unique=True)
+    name = models.CharField(max_length=255)
+    
     description = models.TextField(blank=True)
     
     BasecampProject = BasecampProject
+
+    def save(self, force_insert=False, force_update=False):
+        self.detect_basecamp_id()
+        self.detect_name()
+        super(Project, self).save(force_insert, force_update)
 
     def detect_basecamp_id(self):
         '''If project_url is set, it is parsed for the project_id.'''

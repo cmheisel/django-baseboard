@@ -112,6 +112,19 @@ class ProjectUnitTests(BaseboardTestHelper):
         self.project.detect_name()
         self.assertEqual("Kobol's Last Gleaming", self.project.name)
 
+    def test_save(self):
+        """Name and basecamp_id should be populated if URL provided."""
+        p = self.create_project(save=False,
+                                basecamp_url='https://foo.basecamphq.com/projects/1701/log/',
+                                basecamp_id=None,
+                                name='')
+
+        p.save()
+        self.assertEqual(1701, p.basecamp_id)
+        self.assertEqual("Kobol's Last Gleaming", self.project.name)
+        
+        
+
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):
         """Create a Dashboard object, using the optional kwargs. If save=False the object is returned without saving."""
