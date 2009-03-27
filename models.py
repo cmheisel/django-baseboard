@@ -8,6 +8,8 @@ class Project(models.Model):
     basecamp_url = models.URLField(verify_exists=False, unique=True)
     basecamp_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(editable=False)
+    updated_at = models.DateTimeField(editable=False)
     
     description = models.TextField(blank=True)
     
@@ -16,6 +18,11 @@ class Project(models.Model):
     def save(self, force_insert=False, force_update=False):
         self.detect_basecamp_id()
         self.detect_name()
+
+        self.updated_at = datetime.datetime.now()
+        if not self.id:
+            self.created_at = datetime.datetime.now()
+        
         super(Project, self).save(force_insert, force_update)
 
     def detect_basecamp_id(self):
