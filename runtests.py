@@ -24,8 +24,6 @@ def establish_settings():
             __overriden_settings[key] = value
             setattr(settings, key, value)
 
-    print settings.DATABASE_ENGINE
-
 def restore_settings():
     import os
     os.environ['DJANGO_SETTINGS_MODULE'] =  __previous_settings_module
