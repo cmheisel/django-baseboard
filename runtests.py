@@ -12,6 +12,9 @@ def establish_settings():
         DATABASE_NAME = ":memory:",
         TEST_DATABASE_CHARSET = 'utf8',
         TEST_DATABASE_COLLATION = 'utf8_unicode_ci',
+        BASEBOARD_CREDENTIALS = {
+            'https://foo.basecamphq.com/': ('username1', 'password1')
+        },
     )
 
     import os
