@@ -1,3 +1,5 @@
+import sys
+
 __previous_settings_module = ''
 __overriden_settings = {}
 
