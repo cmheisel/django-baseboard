@@ -28,13 +28,21 @@ class BaseboardTestHelper(TestCase):
             return self.object_index() #Recurse until you find an unused integer
 
 class ProjectUnitTests(BaseboardTestHelper):
+    url_parsing_tests = {
+        "valid": ('https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
+                  'https://foo.updatelog.com/projects/2907852/project/log/',
+                  'https://foo.updatelog.com/projects/2907852/posts',
+                  'https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
+                  'https://foo.updatelog.com/projects/2907852/chat/pick_room'),
+        "invalid": ('https://foo.updatelog.com/clients', ),
+    }
+
     def setUp(self):
         super(ProjectUnitTests, self).setUp()
         self._mock_basecamp_access()
 
     def tearDown(self):
         self._unmock_basecamp_access()
-
 
     def _mock_basecamp_access(self):
         """Monkey patches Project.Basecamp for testing."""
@@ -49,9 +57,10 @@ class ProjectUnitTests(BaseboardTestHelper):
         """Creates a Project instance, using valid test defaults unless overridden in **kwargs."""
         index = self.object_index()
         if not kwargs:
-            kwargs = dict(name="Test Project %s" % index,
-                          slug="test-project-%s" %index,
-                          project_id=index)
+            kwargs = dict(name = "Test Project %s" % index,
+                          slug = "test-project-%s" % index,
+                          basecamp_domain ="project%s.basecamphq.com" % index,
+                          basecamp_id = index)
         p = Project(**kwargs)
 
         if not save: return p
@@ -68,6 +77,34 @@ class ProjectUnitTests(BaseboardTestHelper):
         self.assertEqual(None, p.id)
         p.save()
         self.assert_(p.id)
+
+    def test_project_id_detection(self):
+        """When given a proper URL it should be able to set it's project_id field."""
+        tests = {
+            2907852: self.url_parsing_tests['valid'],
+            None: self.url_parsing_tests['invalid'],
+        }
+        
+        for basecamp_id, test_cases in tests.items():
+            for case in test_cases:
+                p = self.create_project(save=False, basecamp_id=None)
+                p.basecamp_url = case
+                p.detect_basecamp_id()
+                msg = "%s != %s Test case: %s" % (p.basecamp_id, basecamp_id, case)
+                self.assertEqual(p.basecamp_id, basecamp_id, msg)
+
+    def test_domain_detection(self):
+        tests = {
+            'foo.updatelog.com': self.url_parsing_tests['valid'],
+            None: self.url_parsing_tests['invalid'],
+        }
+
+        for domain, test_cases in tests.items():
+            for case in test_cases:
+                p = self.create_project(save=False, basecamp_id=None, basecamp_domain=None)
+                p.basecamp_url = case
+                p.detect_basecamp_domain()
+                self.assertEqual(domain, p.basecamp_domain)
 
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):
@@ -89,6 +126,9 @@ class DashboardUnitTests(BaseboardTestHelper):
 
         self.assertEqual(actual, expected)
 
+def runtests():
+    import os
+    os.system("python ./runtests.py")
+
 if __name__ == "__main__":
-    from baseboard.runtests import run_tests
-    run_tests(["baseboard"])
+    runtests()
