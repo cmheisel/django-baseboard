@@ -6,9 +6,7 @@ class Project(models.Model):
     """Represents a Basecamp-backed project"""
     slug = models.SlugField(unique=True)
     basecamp_id = models.IntegerField()
-    basecamp_domain = models.CharField(max_length=80)
-
-    basecamp_url = models.URLField(verify_exists=False, blank=True)
+    basecamp_url = models.URLField(verify_exists=False)
 
     name = models.CharField(max_length=255, blank=True)    
     description = models.TextField(blank=True)
@@ -31,19 +29,30 @@ class Project(models.Model):
 
         return self.basecamp_id
 
-    def detect_basecamp_domain(self):
+    @property
+    def basecamp_api_url(self):
         """Extracts domain from basecamp_url if set."""
         if not self.detect_basecamp_id(): return None
 
         parts = self.basecamp_url.split('/')
         try:
-            domain_string = parts[2]
-            self.basecamp_domain = domain_string
+            api_url = "%s//%s/" % (parts[0], parts[2])
         except IndexError:
-            print parts
             return None
         
-        return self.basecamp_domain
+        return api_url
+
+    def detect_name(self):
+        """Fetches name from Basecamp."""
+        if not self.basecamp_id and self.basecamp_domain: return None
+        self.name = self.basecamp_project.name
+        return self.name
+
+    @property
+    def basecamp_project(self):
+        if self._basecamp_project: return self._basecamp_project
+        self._basecamp_project = self.BasecampProject()
+    
     
 class Dashboard(models.Model):
     """A collection of projects."""

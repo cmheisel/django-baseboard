@@ -40,6 +40,7 @@ class ProjectUnitTests(BaseboardTestHelper):
     def setUp(self):
         super(ProjectUnitTests, self).setUp()
         self._mock_basecamp_access()
+        self.project = self.create_project()
 
     def tearDown(self):
         self._unmock_basecamp_access()
@@ -59,7 +60,7 @@ class ProjectUnitTests(BaseboardTestHelper):
         if not kwargs:
             kwargs = dict(name = "Test Project %s" % index,
                           slug = "test-project-%s" % index,
-                          basecamp_domain ="project%s.basecamphq.com" % index,
+                          basecamp_url = "https://foo.basecamphq.com/projects/%s/log" % index,
                           basecamp_id = index)
         p = Project(**kwargs)
 
@@ -93,18 +94,23 @@ class ProjectUnitTests(BaseboardTestHelper):
                 msg = "%s != %s Test case: %s" % (p.basecamp_id, basecamp_id, case)
                 self.assertEqual(p.basecamp_id, basecamp_id, msg)
 
-    def test_domain_detection(self):
+    def test_api_url_(self):
         tests = {
-            'foo.updatelog.com': self.url_parsing_tests['valid'],
+            'https://foo.updatelog.com/': self.url_parsing_tests['valid'],
+            'http://foo.updatelog.com/': ['http://foo.updatelog.com/projects/8130456/', ],
             None: self.url_parsing_tests['invalid'],
         }
-
         for domain, test_cases in tests.items():
             for case in test_cases:
-                p = self.create_project(save=False, basecamp_id=None, basecamp_domain=None)
+                p = self.create_project(save=False, basecamp_id=None)
                 p.basecamp_url = case
-                p.detect_basecamp_domain()
-                self.assertEqual(domain, p.basecamp_domain)
+                self.assertEqual(domain, p.basecamp_api_url)
+
+    def ztest_name_detection(self):
+        """If no name is provided, it should be loaded from Basecamp."""
+        self.project.name = ''
+        self.project.detect_name()
+        self.assertEqual("API Testing Project", self.project.name)
 
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):
