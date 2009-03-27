@@ -2,8 +2,8 @@ import random
 
 from django.test import TestCase
 
-from basecampreporting.mocks import TestProject
 from baseboard.models import Project, Dashboard
+from baseboard.mocks import TestBasecampProject
 
 class BaseboardTestHelper(TestCase):
     def setUp(self):
@@ -45,10 +45,10 @@ class ProjectUnitTests(BaseboardTestHelper):
     def tearDown(self):
         self._unmock_basecamp_access()
 
-    def _mock_basecamp_access(self):
+    def _mock_basecamp_access(self, klass=TestBasecampProject):
         """Monkey patches Project.Basecamp for testing."""
         self._real_Basecamp = Project.BasecampProject
-        Project.BasecampProject = TestProject
+        Project.BasecampProject = klass
 
     def _unmock_basecamp_access(self):
         """Undoes the Project.Basecamp monkeypatching."""
@@ -94,7 +94,7 @@ class ProjectUnitTests(BaseboardTestHelper):
                 msg = "%s != %s Test case: %s" % (p.basecamp_id, basecamp_id, case)
                 self.assertEqual(p.basecamp_id, basecamp_id, msg)
 
-    def test_api_url_(self):
+    def test_basecamp_api_url(self):
         tests = {
             'https://foo.updatelog.com/': self.url_parsing_tests['valid'],
             'http://foo.updatelog.com/': ['http://foo.updatelog.com/projects/8130456/', ],
@@ -110,7 +110,7 @@ class ProjectUnitTests(BaseboardTestHelper):
         """If no name is provided, it should be loaded from Basecamp."""
         self.project.name = ''
         self.project.detect_name()
-        self.assertEqual("API Testing Project", self.project.name)
+        self.assertEqual("Kobol's Last Gleaming", self.project.name)
 
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):

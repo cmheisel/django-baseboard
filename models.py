@@ -54,6 +54,7 @@ class Project(models.Model):
 
         username, password = self.basecamp_credentials
         self._basecamp_project = self.BasecampProject(self.basecamp_api_url, self.basecamp_id, username, password)
+        return self._basecamp_project
 
     @property
     def basecamp_credentials(self):
