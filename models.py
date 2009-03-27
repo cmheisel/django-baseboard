@@ -1,6 +1,6 @@
 from django.db import models
 
-from basecampreporting.project import Project as Basecamp
+from basecampreporting.project import Project as BasecampProject
 
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
@@ -11,7 +11,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255, blank=True)    
     description = models.TextField(blank=True)
     
-    Basecamp = Basecamp
+    BasecampProject = BasecampProject
 
     def detect_basecamp_id(self):
         '''If project_url is set, it is parsed for the project_id.'''
@@ -50,9 +50,15 @@ class Project(models.Model):
 
     @property
     def basecamp_project(self):
-        if self._basecamp_project: return self._basecamp_project
-        self._basecamp_project = self.BasecampProject()
-    
+        if hasattr(self, '_basecamp_project'): return self._basecamp_project #Caching
+
+        username, password = self.basecamp_credentials
+        self._basecamp_project = self.BasecampProject(self.basecamp_api_url, self.basecamp_id, username, password)
+
+    @property
+    def basecamp_credentials(self):
+        from django.conf import settings
+        return settings.BASEBOARD_CREDENTIALS[self.basecamp_api_url]
     
 class Dashboard(models.Model):
     """A collection of projects."""

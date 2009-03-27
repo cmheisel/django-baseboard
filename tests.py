@@ -47,12 +47,12 @@ class ProjectUnitTests(BaseboardTestHelper):
 
     def _mock_basecamp_access(self):
         """Monkey patches Project.Basecamp for testing."""
-        self._real_Basecamp = Project.Basecamp
-        Project.Basecamp = TestProject
+        self._real_Basecamp = Project.BasecampProject
+        Project.BasecampProject = TestProject
 
     def _unmock_basecamp_access(self):
         """Undoes the Project.Basecamp monkeypatching."""
-        Project.Basecamp = self._real_Basecamp
+        Project.BasecampProject = self._real_Basecamp
     
     def create_project(self, save=True, **kwargs):
         """Creates a Project instance, using valid test defaults unless overridden in **kwargs."""
@@ -106,7 +106,7 @@ class ProjectUnitTests(BaseboardTestHelper):
                 p.basecamp_url = case
                 self.assertEqual(domain, p.basecamp_api_url)
 
-    def ztest_name_detection(self):
+    def test_name_detection(self):
         """If no name is provided, it should be loaded from Basecamp."""
         self.project.name = ''
         self.project.detect_name()
