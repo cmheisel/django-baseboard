@@ -1,3 +1,6 @@
+
+import datetime
+
 from django.db import models
 
 from basecampreporting.project import Project as BasecampProject
@@ -11,7 +14,9 @@ class Project(models.Model):
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
     
+
     description = models.TextField(blank=True)
+    summary_data = models.TextField(blank=True)
     
     BasecampProject = BasecampProject
 
@@ -56,7 +61,7 @@ class Project(models.Model):
 
     def detect_name(self):
         """Fetches name from Basecamp."""
-        if not self.basecamp_id and self.basecamp_domain: return None
+        if not self.basecamp_id and self.basecamp_url: return None
         self.name = self.basecamp_project.name
         return self.name
 

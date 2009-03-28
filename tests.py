@@ -27,18 +27,9 @@ class BaseboardTestHelper(TestCase):
         else:
             return self.object_index() #Recurse until you find an unused integer
 
-class ProjectUnitTests(BaseboardTestHelper):
-    url_parsing_tests = {
-        "valid": ('https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
-                  'https://foo.updatelog.com/projects/2907852/project/log/',
-                  'https://foo.updatelog.com/projects/2907852/posts',
-                  'https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
-                  'https://foo.updatelog.com/projects/2907852/chat/pick_room'),
-        "invalid": ('https://foo.updatelog.com/clients', ),
-    }
-
+class ProjectUnitHelper(BaseboardTestHelper):
     def setUp(self):
-        super(ProjectUnitTests, self).setUp()
+        super(ProjectUnitHelper, self).setUp()
         self._mock_basecamp_access()
         self.project = self.create_project()
 
@@ -69,6 +60,16 @@ class ProjectUnitTests(BaseboardTestHelper):
         p.save()
         self.assert_(p.id)
         return p
+
+class ProjectUnitTests(ProjectUnitHelper):
+    url_parsing_tests = {
+        "valid": ('https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
+                  'https://foo.updatelog.com/projects/2907852/project/log/',
+                  'https://foo.updatelog.com/projects/2907852/posts',
+                  'https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
+                  'https://foo.updatelog.com/projects/2907852/chat/pick_room'),
+        "invalid": ('https://foo.updatelog.com/clients', ),
+    }
             
     def test_create_project(self):
         p = self.create_project()
@@ -122,8 +123,11 @@ class ProjectUnitTests(BaseboardTestHelper):
         p.save()
         self.assertEqual(1701, p.basecamp_id)
         self.assertEqual("Kobol's Last Gleaming", self.project.name)
-        
-        
+
+
+class ProjectSummaryTests(ProjectUnitHelper):
+    pass
+    
 
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):
