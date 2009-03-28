@@ -9,8 +9,8 @@ class Project(models.Model):
     """Represents a Basecamp-backed project"""
     slug = models.SlugField(unique=True)
     basecamp_url = models.URLField(verify_exists=False, unique=True)
-    basecamp_id = models.IntegerField(unique=True)
-    name = models.CharField(max_length=255)
+    basecamp_id = models.IntegerField(unique=True, blank=True)
+    name = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
     
