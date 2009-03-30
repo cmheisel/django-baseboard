@@ -126,8 +126,16 @@ class ProjectUnitTests(ProjectUnitHelper):
 
 
 class ProjectSummaryTests(ProjectUnitHelper):
-    pass
-    
+    def test_summary_updates(self):
+        """Summaries shouldn't be fetched until explicity asked for."""
+        self.assertEqual({}, self.project.summary)
+        self.assertEqual(None, self.project.basecamp_updated_at)
+
+        self.project.update_summary()
+
+        self.assertNotEqual(None, self.project.basecamp_updated_at)
+        self.assert_(self.project.summary, "There should be a populated project summary.")
+        
 
 class DashboardUnitTests(BaseboardTestHelper):
     def create_dashboard(self, save=True, **kwargs):

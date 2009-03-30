@@ -1,5 +1,6 @@
-
 import datetime
+
+import simplejson as json
 
 from django.db import models
 
@@ -15,6 +16,7 @@ class Project(models.Model):
     updated_at = models.DateTimeField(editable=False)
     
 
+    basecamp_updated_at = models.DateTimeField(editable=False, null=True)
     description = models.TextField(blank=True)
     summary_data = models.TextField(blank=True)
     
@@ -77,6 +79,30 @@ class Project(models.Model):
     def basecamp_credentials(self):
         from django.conf import settings
         return settings.BASEBOARD_CREDENTIALS[self.basecamp_api_url]
+
+    @property
+    def summary(self):
+        if not self.summary_data: return {}
+        if hasattr(self, '_summary_object_cache'): return self._summary_object_cache
+        
+        self._summary_object_cache = json.loads(self.summary_data)
+
+        return self._summary_object_cache
+
+    def update_summary(self):
+        """Makes network calls to Basecamp to update
+        the summary information."""
+        self.basecamp_updated_at = datetime.datetime.now()
+
+        summary_data = {}
+        if self.basecamp_project.current_sprint:
+            summary_data['current_sprint'] = self.basecamp_project.current_sprint.to_dict()
+        else:
+            summary_data['current_sprint'] = None
+        
+        self.save()
+        pass
+    
     
 class Dashboard(models.Model):
     """A collection of projects."""
