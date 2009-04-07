@@ -159,7 +159,7 @@ class DashboardUnitTests(BaseboardTestHelper):
 
 def runtests():
     import os
-    os.system("python ./runtests.py")
+    os.system("~/local/bin/python runtests.py")
 
 if __name__ == "__main__":
     runtests()

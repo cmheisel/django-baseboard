@@ -94,12 +94,7 @@ class Project(models.Model):
         the summary information."""
         self.basecamp_updated_at = datetime.datetime.now()
 
-        summary_data = {}
-        if self.basecamp_project.current_sprint:
-            summary_data['current_sprint'] = self.basecamp_project.current_sprint.to_dict()
-        else:
-            summary_data['current_sprint'] = None
-        
+        summary_data = self.basecamp_project.to_json()
         self.save()
         pass
     

@@ -1,4 +1,5 @@
 import sys
+import pprint
 
 __previous_settings_module = ''
 __overriden_settings = {}
