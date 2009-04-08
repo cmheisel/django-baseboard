@@ -1,6 +1,5 @@
 import datetime
-
-import simplejson as json
+import cPickle as pickle
 
 from django.db import models
 
@@ -85,7 +84,7 @@ class Project(models.Model):
         if not self.summary_data: return {}
         if hasattr(self, '_summary_object_cache'): return self._summary_object_cache
         
-        self._summary_object_cache = json.loads(self.summary_data)
+        self._summary_object_cache = pickle.loads(self.summary_data)
 
         return self._summary_object_cache
 
@@ -99,7 +98,14 @@ class Project(models.Model):
         if self.basecamp_project.current_sprint:
             summary_data['current_sprint'] = self.basecamp_project.current_sprint.to_dict()
 
-        self.summary_data = json.dumps(summary_data)
+        summary_data['upcoming_sprints'] = [ s.to_dict() for s in self.basecamp_project.upcoming_sprints ]
+        summary_data['late_milestones'] = [ m.to_dict() for m in self.basecamp_project.late_milestones[0:3] ]
+        summary_data['upcoming_milestones'] = [ m.to_dict() for m in self.basecamp_project.upcoming_milestones[0:3] ]
+        summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs ]
+        summary_data['backlogged_count'] = self.basecamp_project.backlogged_count
+            
+
+        self.summary_data = pickle.dumps(summary_data)
         self.save()
     
     
