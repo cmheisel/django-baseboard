@@ -1,3 +1,5 @@
+import datetime
+
 class TestSerializable(object):
     def __init__(self, **kwargs):
         self.data = kwargs
@@ -10,9 +12,21 @@ class TestSerializable(object):
 class TodoList(TestSerializable):
     pass
 
+class Milestone(TestSerializable):
+    pass
+
 class TestBasecampProject(object):
     name = "Kobol's Last Gleaming"
     current_sprint = TodoList(name="Sprint 33 - Flee", sprint_number=33)
+    upcoming_sprints = [TodoList(name="Sprint 34 - Water", sprint_number=34), ]
+    late_milestones = []
+    upcoming_milestones = [ Milestone(name="Bastille Day", deadline=datetime.datetime(3000, 1, 1)), ]
+    backlogs = []
+    backlogged_count = 0
     
     def __init__(self, *args, **kwargs):
         pass
+
+if __name__ == "__main__":
+    import os
+    os.system("~/local/bin/python runtests.py")
