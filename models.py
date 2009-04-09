@@ -21,6 +21,9 @@ class Project(models.Model):
     
     BasecampProject = BasecampProject
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, force_insert=False, force_update=False):
         self.detect_basecamp_id()
         self.detect_name()
