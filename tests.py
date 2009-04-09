@@ -1,4 +1,4 @@
-import random
+import random, pprint
 
 from django.test import TestCase
 
@@ -135,6 +135,9 @@ class ProjectSummaryTests(ProjectUnitHelper):
 
         self.assertNotEqual(None, self.project.basecamp_updated_at)
         self.assert_(self.project.summary, "There should be a populated project summary.")
+
+        expected = pprint.pformat(self.project.summary)
+        self.assertEqual(expected, self.project.readable_summary)
         
 
 class DashboardUnitTests(BaseboardTestHelper):

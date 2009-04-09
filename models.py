@@ -1,4 +1,4 @@
-import datetime
+import datetime, pprint
 import cPickle as pickle
 
 from django.db import models
@@ -17,7 +17,8 @@ class Project(models.Model):
 
     basecamp_updated_at = models.DateTimeField(editable=False, null=True)
     description = models.TextField(blank=True)
-    summary_data = models.TextField(blank=True)
+    summary_data = models.TextField(blank=True, editable=False)
+    readable_summary = models.TextField(blank=True)
     
     BasecampProject = BasecampProject
 
@@ -107,7 +108,7 @@ class Project(models.Model):
         summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs ]
         summary_data['backlogged_count'] = self.basecamp_project.backlogged_count
             
-
+        self.readable_summary = pprint.pformat(summary_data)
         self.summary_data = pickle.dumps(summary_data)
         self.save()
     
