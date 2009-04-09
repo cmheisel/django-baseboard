@@ -8,7 +8,7 @@
 
 {% for dashboard in dashboard_list %}
   {% if forloop.first %}<ul>{% endif %}
-  <li><a href="{{ d.get_absolute_url }}">{{ dashboard.name }}</a></li>
+  <li><a href="{{ dashboard.get_absolute_url }}">{{ dashboard.name }}</a></li>
   {% if forloop.last %}</ul>{% endif %}
 {% endfor %}
 
