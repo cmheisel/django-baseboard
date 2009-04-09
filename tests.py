@@ -6,12 +6,17 @@ from baseboard.models import Project, Dashboard
 from baseboard.mocks import TestBasecampProject
 
 class BaseboardTestHelper(TestCase):
+    urls = 'baseboard.urls'
+
     def setUp(self):
         random.seed()
         self.object_indexes = []
+        self._mock_basecamp_access()
+        self.project = self.create_project()
         super(BaseboardTestHelper, self).setUp()
 
     def tearDown(self):
+        self._unmock_basecamp_access()
         super(BaseboardTestHelper, self).tearDown()
 
     def object_index(self, max=1000):
@@ -27,15 +32,6 @@ class BaseboardTestHelper(TestCase):
         else:
             return self.object_index() #Recurse until you find an unused integer
 
-class ProjectUnitHelper(BaseboardTestHelper):
-    def setUp(self):
-        super(ProjectUnitHelper, self).setUp()
-        self._mock_basecamp_access()
-        self.project = self.create_project()
-
-    def tearDown(self):
-        self._unmock_basecamp_access()
-
     def _mock_basecamp_access(self, klass=TestBasecampProject):
         """Monkey patches Project.Basecamp for testing."""
         self._real_Basecamp = Project.BasecampProject
@@ -43,8 +39,8 @@ class ProjectUnitHelper(BaseboardTestHelper):
 
     def _unmock_basecamp_access(self):
         """Undoes the Project.Basecamp monkeypatching."""
-        Project.BasecampProject = self._real_Basecamp
-    
+        Project.BasecampProject = self._real_Basecamp    
+
     def create_project(self, save=True, **kwargs):
         """Creates a Project instance, using valid test defaults unless overridden in **kwargs."""
         index = self.object_index()
@@ -61,7 +57,20 @@ class ProjectUnitHelper(BaseboardTestHelper):
         self.assert_(p.id)
         return p
 
-class ProjectUnitTests(ProjectUnitHelper):
+    def create_dashboard(self, save=True, **kwargs):
+        """Create a Dashboard object, using the optional kwargs. If save=False the object is returned without saving."""
+        index = self.object_index()
+        if not kwargs: kwargs = dict(name="Test Dashboard %s" % index, slug="test-dashboard-%s" % index)
+        d = Dashboard(**kwargs)
+
+        if not save: return d
+        
+        d.save()
+        self.assert_(d.id) #Cheap validity check
+        return d
+
+
+class ProjectUnitTests(BaseboardTestHelper):
     url_parsing_tests = {
         "valid": ('https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
                   'https://foo.updatelog.com/projects/2907852/project/log/',
@@ -125,7 +134,7 @@ class ProjectUnitTests(ProjectUnitHelper):
         self.assertEqual("Kobol's Last Gleaming", self.project.name)
 
 
-class ProjectSummaryTests(ProjectUnitHelper):
+class ProjectSummaryTests(BaseboardTestHelper):
     def test_summary_updates(self):
         """Summaries shouldn't be fetched until explicity asked for."""
         self.assertEqual({}, self.project.summary)
@@ -141,24 +150,20 @@ class ProjectSummaryTests(ProjectUnitHelper):
         
 
 class DashboardUnitTests(BaseboardTestHelper):
-    def create_dashboard(self, save=True, **kwargs):
-        """Create a Dashboard object, using the optional kwargs. If save=False the object is returned without saving."""
-        index = self.object_index()
-        if not kwargs: kwargs = dict(name="Test Dashboard %s" % index, slug="test-dashboard-%s" % index)
-        d = Dashboard(**kwargs)
-
-        if not save: return d
-        
-        d.save()
-        self.assert_(d.id) #Cheap validity check
-        return d
-
     def test_str(self):
         d = self.create_dashboard(name="Test Dashboard", slug="test-dashboard")
         expected = "Test Dashboard"
         actual = str(d)
 
         self.assertEqual(actual, expected)
+
+class BaseboardFunctionalTests(BaseboardTestHelper):
+    def test_index(self):
+        d = self.create_dashboard()
+        
+        r = self.client.get('/')
+        self.assertContains(r, d.name)
+        self.assertContains(r, d.get_absolute_url())
 
 def runtests():
     import os

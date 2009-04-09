@@ -122,8 +122,11 @@ class Dashboard(models.Model):
 
     def __unicode__(self):
         return self.name
-        
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('dashboard_detail', [], { 'slug': self.slug })
+    
 if __name__ == "__main__":
     import baseboard.tests
     tests.runtests()

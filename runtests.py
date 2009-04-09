@@ -13,6 +13,7 @@ def establish_settings():
         DATABASE_NAME = ":memory:",
         TEST_DATABASE_CHARSET = 'utf8',
         TEST_DATABASE_COLLATION = 'utf8_unicode_ci',
+        ROOT_URLCONF = 'baseboard.urls',
         BASEBOARD_CREDENTIALS = {
             'https://foo.basecamphq.com/': ('username1', 'password1')
         },
