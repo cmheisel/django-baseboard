@@ -21,7 +21,7 @@ class TestBasecampProject(object):
     upcoming_sprints = [TodoList(name="Sprint 34 - Water", sprint_number=34), ]
     late_milestones = []
     upcoming_milestones = [ Milestone(name="Bastille Day", deadline=datetime.datetime(3000, 1, 1)), ]
-    backlogs = []
+    backlogs = {}
     backlogged_count = 0
     
     def __init__(self, *args, **kwargs):
