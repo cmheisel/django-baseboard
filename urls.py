@@ -12,12 +12,12 @@ dashboard_list_args = {
 }
 
 dashboard_detail_args = {
-    'queryset': Dashboard.objects,
+    'queryset': Dashboard.objects.all(),
     'template_name': 'baseboard/dashboard_detail.html',
-    'slug_field': 'slug',
+    'template_object_name': 'dashboard',
 }
 
 urlpatterns = patterns('',
    url(r'^$', object_list, dashboard_list_args, name="dashboard_list"),
-   url(r'^dashboard/(?P<slug>[-\w]+/$)', object_detail, dashboard_detail_args, name="dashboard_detail"),
+   url(r'^dashboard/(?P<slug>[-\w]+)/$', object_detail, dashboard_detail_args, name="dashboard_detail"),
 )                      
