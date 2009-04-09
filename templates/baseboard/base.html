@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>{% block title %}{% endblock %}Base(camp)(dash)Boards</title>
+  
+  {% block extra_head %}
+  {% endblock %}
+  
+</head>
+
+<body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+
+<h1>{% block application_title %}Base(camp)(dash)Boards{% endblock %}</h1>
+
+<h2>{% block content_title %}{% endblock %}</h1>
+
+<div id="menu">
+  {% block menu %}{% endblock %}
+</div> <!-- end menu div -->
+
+<div id="{% block content_id %}content{% endblock %}" class="{% block content_classes %}{% endblock %}">
+  {% block content %}
+  {% endblock %}
+</div> <!-- end content div -->
+
+</body>
+</html>

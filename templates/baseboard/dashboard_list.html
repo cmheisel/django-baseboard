@@ -1,0 +1,15 @@
+{% extends 'baseboard/base.html' %}
+
+{% block title %}All dashboards / {% endblock %}
+
+{% block content_title %}All dashboards{% endblock %}
+
+{% block content %}
+
+{% for dashboard in dashboard_list %}
+  {% if forloop.first %}<ul>{% endif %}
+  <li><a href="{{ d.get_absolute_url }}">{{ dashboard.name }}</a></li>
+  {% if forloop.last %}</ul>{% endif %}
+{% endfor %}
+
+{% endblock %}
