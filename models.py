@@ -105,7 +105,7 @@ class Project(models.Model):
         summary_data['upcoming_sprints'] = [ s.to_dict() for s in self.basecamp_project.upcoming_sprints ]
         summary_data['late_milestones'] = [ m.to_dict() for m in self.basecamp_project.late_milestones[0:3] ]
         summary_data['upcoming_milestones'] = [ m.to_dict() for m in self.basecamp_project.upcoming_milestones[0:3] ]
-        summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs ]
+        summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs.values() ]
         summary_data['backlogged_count'] = self.basecamp_project.backlogged_count
             
         self.readable_summary = pprint.pformat(summary_data)
