@@ -10,6 +10,8 @@
 
 {% block content_description %}
 {{ dashboard.description }}
+
+<p><strong>Extracted from Basecamp on:</strong> {{ dashboard.projects.all.0.basecamp_updated_at|date:"N j, f a" }}</p>
 {% endblock %}
 
 {% block content %}
@@ -18,13 +20,34 @@
 <p>There aren't any projects associated with this dashboard.</p>
 {% endif %}
 
+
 {% for project in dashboard.projects.all %}
-<div class="project_recap">
+<div class="project_recap {% cycle 'project_recap_even' 'project_recap_odd' %}{% if project.is_late %} project_late{% endif %}{% if project.is_stale %} project_stale{% endif %}">
   <ul>
+
     <li>
-      <a href="{{ project.basecamp_url }}">{{ project.name }}</a>
+      <strong><a href="{{ project.basecamp_url }}">{{ project.name }}</a></strong>
       {% if project.summary.current_sprint %}{{ project.summary.current_sprint.name }}{% endif %}
     </li>
+
+    {% if project.summary.current_sprint.description %}
+    <li>
+      {{ project.summary.current_sprint.description }}
+    </li>
+    {% endif %}
+
+    {% if project.summary.late_milestones %}
+    <li><strong>Late milestones:</strong> {{ project.summary.late_milestones|length }}</li>
+    {% endif %}
+
+    <li>
+      <strong>Next:</strong> {{ project.summary.upcoming_milestones.0.title|default:"Nothing planned" }}
+    </li>
+
+    <li>
+      Last changed {{ project.summary.last_changed_on|timesince }} ago
+    </li>
+
   </ul>
 </div>
 {% endfor %}
