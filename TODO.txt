@@ -1,1 +1,1 @@
-* django-admin.py should grow a command to update summaries suitable for cron'ing
+
