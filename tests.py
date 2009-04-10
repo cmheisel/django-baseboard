@@ -123,6 +123,15 @@ class ProjectUnitTests(BaseboardTestHelper):
         self.project.detect_name()
         self.assertEqual("Kobol's Last Gleaming", self.project.name)
 
+    def test_auto_slug(self):
+        p = self.create_project(save=False,
+                                name="Kobol's Last Gleaming",
+                                basecamp_url='https://foo.basecamphq.com/projects/1701/log/',
+                                basecamp_id=None,                                
+                                slug='')
+        p.save()
+        self.assertNotEqual('', p.slug)
+
     def test_save(self):
         """Name and basecamp_id should be populated if URL provided."""
         p = self.create_project(save=False,

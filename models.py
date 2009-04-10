@@ -3,21 +3,22 @@ import datetime, pprint
 import cPickle as pickle
 
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from basecampreporting.project import Project as BasecampProject
 
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
-    slug = models.SlugField(unique=True)
-    basecamp_url = models.URLField(verify_exists=False, unique=True)
+    slug = models.SlugField(unique=True, blank=True, help_text="This will be prefilled from the project's name if left blank.")
+    basecamp_url = models.URLField(verify_exists=False, unique=True, help_text="Example: https://ajcprojects.updatelog.com/projects/2404439/project/log")
     basecamp_id = models.IntegerField(unique=True, blank=True)
-    name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, blank=True, help_text="This will be prefilled from the project if left blank.")
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
     
 
     basecamp_updated_at = models.DateTimeField(editable=False, null=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, help_text="A brief summary of the project and it's goals.")
     summary_data = models.TextField(blank=True, editable=False)
     readable_summary = models.TextField(blank=True)
     
@@ -29,6 +30,9 @@ class Project(models.Model):
     def save(self, force_insert=False, force_update=False):
         self.detect_basecamp_id()
         self.detect_name()
+
+        if not self.slug:
+            self.slug = slugify("%s-%s" % (self.basecamp_id, self.name))
 
         self.updated_at = datetime.datetime.now()
         if not self.id:
