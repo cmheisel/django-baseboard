@@ -88,7 +88,7 @@ class Project(models.Model):
         if not self.summary_data: return {}
         if hasattr(self, '_summary_object_cache'): return self._summary_object_cache
         
-        self._summary_object_cache = pickle.loads(self.summary_data)
+        self._summary_object_cache = pickle.loads(str(self.summary_data))
 
         return self._summary_object_cache
 
