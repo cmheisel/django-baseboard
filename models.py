@@ -1,3 +1,4 @@
+
 import datetime, pprint
 import cPickle as pickle
 
@@ -32,7 +33,8 @@ class Project(models.Model):
         self.updated_at = datetime.datetime.now()
         if not self.id:
             self.created_at = datetime.datetime.now()
-        
+
+        if not self.summary_data: self.update_summary()
         super(Project, self).save(force_insert, force_update)
 
     def detect_basecamp_id(self):
@@ -107,11 +109,25 @@ class Project(models.Model):
         summary_data['upcoming_milestones'] = [ m.to_dict() for m in self.basecamp_project.upcoming_milestones[0:3] ]
         summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs.values() ]
         summary_data['backlogged_count'] = self.basecamp_project.backlogged_count
+        summary_data['last_changed_on'] = self.basecamp_project.last_changed_on
             
         self.readable_summary = pprint.pformat(summary_data)
         self.summary_data = pickle.dumps(summary_data)
         self.save()
-    
+
+    def is_late(self):
+        """Returns true if there's a late milestone."""
+        try:
+            if self.summary['late_milestones']: return True
+        except KeyError:
+            pprint.pprint(self.summary)
+        return False
+
+    def is_stale(self):
+        """Returns true if the basecamp project hasn't been updated in 3 days."""
+        threshold = datetime.datetime.now() - datetime.timedelta(days=3)
+        if threshold > self.summary['last_changed_on']: return True
+        return False
     
 class Dashboard(models.Model):
     """A collection of projects."""
