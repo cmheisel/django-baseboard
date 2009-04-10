@@ -137,10 +137,9 @@ class ProjectUnitTests(BaseboardTestHelper):
 
 class ProjectSummaryTests(BaseboardTestHelper):
     def test_summary_updates(self):
-        """Summaries shouldn't be fetched until explicity asked for."""
-        self.assertEqual({}, self.project.summary)
-        self.assertEqual(None, self.project.basecamp_updated_at)
-
+        """When fetched a summary should be present and the record
+        should show that it is updated."""
+        
         self.project.update_summary()
 
         self.project = Project.objects.get(id=self.project.id) #Reload from db
