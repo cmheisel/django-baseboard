@@ -4,6 +4,10 @@
 {{ dashboard.name }} Dashboard / {{ block.super }}
 {% endblock %}
 
+{% block menu %}
+<p>Back to <a href="{% url dashboard_list %}">all dashboards</a></p>
+{% endblock %}
+
 {% block content_title %}
 {{ dashboard.name }} Dashboard
 {% endblock %}
