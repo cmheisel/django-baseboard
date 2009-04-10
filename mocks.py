@@ -23,6 +23,7 @@ class TestBasecampProject(object):
     upcoming_milestones = [ Milestone(name="Bastille Day", deadline=datetime.datetime(3000, 1, 1)), ]
     backlogs = {}
     backlogged_count = 0
+    last_changed_on = datetime.datetime.now() - datetime.timedelta(hours=6, minutes=1)
     
     def __init__(self, *args, **kwargs):
         pass
