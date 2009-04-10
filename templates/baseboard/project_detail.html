@@ -1,0 +1,69 @@
+{% extends 'baseboard/base.html' %}
+
+{% block title %}
+{{ project.name }} details / {{ block.super }}
+{% endblock %} 
+
+{% block content_title %}
+{{ project.name }} details
+{% endblock %}
+
+{% block content_description %}
+<p>{{ project.description }}</p>
+<ul>
+<li><strong>Last changed</strong> {{ project.summary.last_changed_on|timesince }} ago</strong></li>
+<li><strong>Extracted from Basecamp</strong> {{ project.basecamp_updated_at|timesince }} ago</li>
+<li>{{ project.summary.backlogged_count }} item{{ project.summary.backlogged_count|pluralize }} in {{ project.summary.backlogs|length }} backlog{{ project.summary.backlogs|length|pluralize }}</li>
+</ul>
+{% endblock %}
+
+{% block content %}
+{% if project.summary.current_sprint %}
+  <h3>Current Sprint</h3>
+  <ul>
+    <li>{{ project.summary.current_sprint.name }}</li>
+    {% if project.summary.current_sprint.description %}<li>{{ project.summary.current_sprint.description }}</li>{% endif %}
+    <li>{{ project.summary.current_sprint.uncompleted_count }} items in sprint</li>
+  </ul>
+{% endif %}
+
+{% if project.summary.upcoming_sprints %}
+  <h3>Upcoming Sprints</h3>
+  {% for sprint in project.summary.upcoming_sprints %}
+  {% if forloop.first %}<ul>{% endif %}
+  <li>{{ sprint.name }}</li>
+  {% if forloop.last %}</ul>{% endif %}
+  {% endfor %}
+{% endif %}
+
+
+{% if project.summary.late_milestones %}
+  <h3>Late milestones</h3>
+  {% for milestone in project.summary.late_milestones %}
+    {% if forloop.first %}<ul>{% endif %}
+    <li>{{ milestone.title }} -- {{ milestone.deadline }}</li>
+    {% if forloop.last %}</ul>{% endif %}
+  {% endfor %}
+{% endif %}
+
+<h3>Upcoming milestones</h3>
+<ul>
+{% if project.summary.upcoming_milestones %}
+  {% for milestone in project.summary.upcoming_milestones %}
+    <li>{{ milestone.title }} -- {{ milestone.deadline }}</li>
+  {% endfor %}
+{% else %}
+<li>Nothing planned.</li>
+{% endif %}
+</ul>
+
+{% if project.summary.previous_milestones %}
+  <h3>Previous milestones</h3>
+  {% for milestone in project.summary.previous_milestones %}
+    {% if forloop.first %}<ul>{% endif %}
+    <li>{{ milestone.title }} -- {{ milestone.completed_on }}</li>
+    {% if forloop.last %}</ul>{% endif %}
+  {% endfor %}
+{% endif %}
+
+{% endblock %}

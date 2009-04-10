@@ -11,7 +11,7 @@
 {% block content_description %}
 {{ dashboard.description }}
 
-<p><strong>Extracted from Basecamp on:</strong> {{ dashboard.projects.all.0.basecamp_updated_at|date:"N j, f a" }}</p>
+<p><strong>Extracted from Basecamp</strong> {{ dashboard.projects.all.0.basecamp_updated_at|timesince }} ago</p>
 {% endblock %}
 
 {% block content %}
@@ -44,8 +44,14 @@
       <strong>Next:</strong> {{ project.summary.upcoming_milestones.0.title|default:"Nothing planned" }}
     </li>
 
+    <li>{{ project.summary.backlogged_count }} item{{ project.summary.backlogged_count|pluralize }} in {{ project.summary.backlogs|length }} backlog{{ project.summary.backlogs|length|pluralize }}</li>
+
     <li>
       Last changed {{ project.summary.last_changed_on|timesince }} ago
+    </li>
+
+    <li>
+      <a href="{{ project.get_absolute_url }}">Project details...</a>
     </li>
 
   </ul>

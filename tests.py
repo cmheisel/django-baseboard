@@ -198,7 +198,15 @@ class BaseboardFunctionalTests(BaseboardTestHelper):
         r = self.client.get(test_url % d.slug)
         self.assertContains(r, "There aren't any projects associated with this dashboard.", 0)
         self.assertContains(r, force_escape(p1.name))
-        self.assertContains(r, force_escape(p2.name))        
+        self.assertContains(r, force_escape(p2.name))
+        self.assertContains(r, d.projects.all()[0].get_absolute_url())
+        
+    def test_project_detail(self):
+        test_url = "/project/%s/"
+
+        r = self.client.get(test_url % self.project.slug)
+        self.assertContains(r, force_escape(self.project.name))
+        self.assertContains(r, self.project.description)
 
 def runtests():
     import os
