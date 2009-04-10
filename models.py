@@ -41,6 +41,10 @@ class Project(models.Model):
         if not self.summary_data: self.update_summary()
         super(Project, self).save(force_insert, force_update)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('project_detail', (), { 'slug': self.slug })
+
     def detect_basecamp_id(self):
         '''If project_url is set, it is parsed for the project_id.'''
         if not self.basecamp_url: return None
@@ -111,6 +115,7 @@ class Project(models.Model):
         summary_data['upcoming_sprints'] = [ s.to_dict() for s in self.basecamp_project.upcoming_sprints ]
         summary_data['late_milestones'] = [ m.to_dict() for m in self.basecamp_project.late_milestones[0:3] ]
         summary_data['upcoming_milestones'] = [ m.to_dict() for m in self.basecamp_project.upcoming_milestones[0:3] ]
+        summary_data['previous_milestones'] = [ m.to_dict() for m in self.basecamp_project.previous_milestones[0:3] ]
         summary_data['backlogs'] = [ t.to_dict() for t in self.basecamp_project.backlogs.values() ]
         summary_data['backlogged_count'] = self.basecamp_project.backlogged_count
         summary_data['last_changed_on'] = self.basecamp_project.last_changed_on
