@@ -78,7 +78,7 @@ class ProjectUnitTests(BaseboardTestHelper):
                   'https://foo.updatelog.com/projects/2907852/posts',
                   'https://foo.updatelog.com/projects/2907852/posts/20924136/comments',
                   'https://foo.updatelog.com/projects/2907852/chat/pick_room'),
-        "invalid": ('https://foo.updatelog.com/clients', ),
+        "invalid": ('https://foo.updatelog.com/clients', 'http://anotherdomain.updatelog.com'),
     }
             
     def test_create_project(self):
