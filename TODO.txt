@@ -1,4 +1,1 @@
-* A Project should have a name
-* A Project should optionally pull it's name from a link to Basecamp
-* A Project linked to Basecamp should be able to display summary data
-* 
+* django-admin.py should grow a command to update summaries suitable for cron'ing
