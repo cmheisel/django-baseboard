@@ -4,6 +4,10 @@
 {{ project.name }} details / {{ block.super }}
 {% endblock %} 
 
+{% block menu %}
+<p>Dashboards: {% for dashboard in project.dashboards.all %}<a href="{{ dashboard.get_absolute_url }}">{{ dashboard.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+{% endblock %}
+
 {% block content_title %}
 {{ project.name }} details
 {% endblock %}
