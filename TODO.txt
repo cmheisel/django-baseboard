@@ -1,1 +1,3 @@
-
+* Handle an authentication/connection error in update_summaries/detect_name
+* Make sure that a non /log/ basecamp URL will be parsed correctly
+* Make sure that a non /log/ basecamp URL will link to the /log/ location from the dashboard/project detail page
