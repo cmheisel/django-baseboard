@@ -1,5 +1,32 @@
 {% extends 'baseboard/base.html' %}
 
+{% block title %}
+{{ dashboard.name }} Dashboard / {{ block.super }}
+{% endblock %}
+
+{% block content_title %}
+{{ dashboard.name }} Dashboard
+{% endblock %}
+
+{% block content_description %}
+{{ dashboard.description }}
+{% endblock %}
+
 {% block content %}
-Hello from the dashboard_detail.html template!
+
+{% if not dashboard.projects %}
+<p>There aren't any projects associated with this dashboard.</p>
+{% endif %}
+
+{% for project in dashboard.projects.all %}
+<div class="project_recap">
+  <ul>
+    <li>
+      <a href="{{ project.basecamp_url }}">{{ project.name }}</a>
+      {% if project.summary.current_sprint %}{{ project.summary.current_sprint.name }}{% endif %}
+    </li>
+  </ul>
+</div>
+{% endfor %}
+
 {% endblock %}

@@ -1,6 +1,7 @@
 import random, pprint
 
 from django.test import TestCase
+from django.template.defaultfilters import force_escape
 
 from baseboard.models import Project, Dashboard
 from baseboard.mocks import TestBasecampProject
@@ -142,8 +143,11 @@ class ProjectSummaryTests(BaseboardTestHelper):
 
         self.project.update_summary()
 
+        self.project = Project.objects.get(id=self.project.id) #Reload from db
+
         self.assertNotEqual(None, self.project.basecamp_updated_at)
         self.assert_(self.project.summary, "There should be a populated project summary.")
+        self.assert_(len(self.project.summary.keys()) > 0, "There should be at least 1 key in the summary dict.")
 
         expected = pprint.pformat(self.project.summary)
         self.assertEqual(expected, self.project.readable_summary)
@@ -164,6 +168,29 @@ class BaseboardFunctionalTests(BaseboardTestHelper):
         r = self.client.get('/')
         self.assertContains(r, d.name)
         self.assertContains(r, d.get_absolute_url())
+
+    def test_dashboard_detail(self):
+        test_url = '/dashboard/%s/'
+        
+        d = self.create_dashboard()
+        d.description = "This is a test dashboard."
+        d.save()
+
+        r = self.client.get(test_url % d.slug)
+        self.assertContains(r, d.name)
+        self.assertContains(r, d.description)
+        
+        p1 = self.create_project()
+        p1.save()
+        p2 = self.create_project()
+        p2.save()
+        d.projects = [ p1, p2 ]
+        d.save()
+
+        r = self.client.get(test_url % d.slug)
+        self.assertContains(r, "There aren't any projects associated with this dashboard.", 0)
+        self.assertContains(r, force_escape(p1.name))
+        self.assertContains(r, force_escape(p2.name))        
 
 def runtests():
     import os

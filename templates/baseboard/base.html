@@ -13,13 +13,14 @@
 
 <h1>{% block application_title %}Base(camp)(dash)Boards{% endblock %}</h1>
 
-<h2>{% block content_title %}{% endblock %}</h1>
-
 <div id="menu">
   {% block menu %}{% endblock %}
 </div> <!-- end menu div -->
 
 <div id="{% block content_id %}content{% endblock %}" class="{% block content_classes %}{% endblock %}">
+  <h2>{% block content_title %}{% endblock %}</h1>
+  <p>{% block content_description %}{% endblock %}
+
   {% block content %}
   {% endblock %}
 </div> <!-- end content div -->
