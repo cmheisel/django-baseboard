@@ -74,6 +74,10 @@ class Project(models.Model):
         
         return api_url
 
+    @classmethod
+    def verify_basecamp_url(self):
+        
+
     def detect_name(self):
         """Fetches name from Basecamp."""
         if not self.basecamp_id and self.basecamp_url: return None
