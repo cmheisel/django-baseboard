@@ -35,7 +35,7 @@ class ProjectAdminForm(forms.ModelForm):
         try:
             p.name
         except HTTPError, e:
-            raise forms.ValidationError(unicode(e))
+            raise forms.ValidationError("Error connecting to Basecamp. Does user %s have access to the project?" % username)
         return url
 
 class ProjectAdmin(admin.ModelAdmin):
