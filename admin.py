@@ -1,3 +1,5 @@
+from urllib2 import HTTPError
+
 from django.contrib import admin
 from django import forms
 
@@ -18,12 +20,23 @@ class ProjectAdminForm(forms.ModelForm):
     def clean_basecamp_url(self):
         url = self.cleaned_data['basecamp_url']
 
+        basecamp_id = Project.extract_basecamp_id(url)
+        api_url = Project.extract_basecamp_api_url(url)
+        if not basecamp_id or not api_url:
+            raise forms.ValidationError("%s does not appear to be a valid basecamp url" % url)
+
+        credentials = Project.get_credentials_for(api_url)
+        if not credentials:
+            raise forms.ValidationError("No credentials for %s" % api_url)
+
+        username, password = credentials
+
+        p = Project.BasecampProject(api_url, basecamp_id, username, password)
         try:
-            Project.verify_basecamp_url(url)
-        except KeyError:
-            protocol, domain = url.split('/')[0], url.split('/')[2]
-            
-            raise forms.ValidationError("Your setup does not include access to projects on %s//%s" % protocol, domain)
+            p.name
+        except HTTPError, e:
+            raise forms.ValidationError(unicode(e))
+        return url
 
 class ProjectAdmin(admin.ModelAdmin):
     form = ProjectAdminForm
@@ -32,11 +45,11 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter=('updated_at', 'basecamp_updated_at')
     fieldsets = (
         (None, {
-            'fields': ("basecamp_url", "description", "name", "slug"),
+            'fields': ("basecamp_url", "basecamp_id", "description", "name", "slug"),
         }),
         ('Advanced options', {
             'classes': ('collapse', ),
-            'fields': ('basecamp_id', 'readable_summary'),
+            'fields': ('readable_summary', ),
         }),
     )
     

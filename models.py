@@ -7,6 +7,12 @@ from django.template.defaultfilters import slugify
 
 from basecampreporting.project import Project as BasecampProject
 
+class InvalidBasecampUrl(Exception):
+    pass
+
+class MissingCredentials(Exception):
+    pass
+
 class Project(models.Model):
     """Represents a Basecamp-backed project"""
     slug = models.SlugField(unique=True, blank=True, help_text="This will be prefilled from the project's name if left blank.")
@@ -28,7 +34,9 @@ class Project(models.Model):
         return self.name
 
     def save(self, force_insert=False, force_update=False):
-        self.detect_basecamp_id()
+        if not self.basecamp_id:
+            self.basecamp_id = Project.extract_basecamp_id(self.basecamp_url)
+        
         self.detect_name()
 
         if not self.slug:
@@ -45,57 +53,55 @@ class Project(models.Model):
     def get_absolute_url(self):
         return ('project_detail', (), { 'slug': self.slug })
 
-    def detect_basecamp_id(self):
-        '''If project_url is set, it is parsed for the project_id.'''
-        if not self.basecamp_url: return None
-        parts = self.basecamp_url.split('/')
+    @classmethod
+    def verify_basecamp_setup(cls, url):
+        print "Checking on %s" % url
+
+    @classmethod
+    def extract_basecamp_id(cls, basecamp_url):
+        parts = basecamp_url.split('/')
         try:
             id_string = parts[4]
         except IndexError:
             return None
 
         try:
-            self.basecamp_id = int(id_string)
+            basecamp_id = int(id_string)
         except TypeError:
             return None
+        return basecamp_id
 
-        return self.basecamp_id
-
-    @property
-    def basecamp_api_url(self):
-        """Extracts domain from basecamp_url if set."""
-        if not self.detect_basecamp_id(): return None
-
-        parts = self.basecamp_url.split('/')
+    @classmethod
+    def extract_basecamp_api_url(cls, url):
+        parts = url.split('/')
         try:
             api_url = "%s//%s/" % (parts[0], parts[2])
         except IndexError:
             return None
-        
         return api_url
 
     @classmethod
-    def verify_basecamp_url(self):
-        
-
-    def detect_name(self):
-        """Fetches name from Basecamp."""
-        if not self.basecamp_id and self.basecamp_url: return None
-        self.name = self.basecamp_project.name
-        return self.name
+    def get_credentials_for(cls, api_url):
+        from django.conf import settings
+        try:
+            return settings.BASEBOARD_CREDENTIALS[api_url]
+        except KeyError:
+            return None
 
     @property
     def basecamp_project(self):
-        if hasattr(self, '_basecamp_project'): return self._basecamp_project #Caching
+        #if hasattr(self, '_basecamp_project'): return self._basecamp_project #Caching
 
-        username, password = self.basecamp_credentials
-        self._basecamp_project = self.BasecampProject(self.basecamp_api_url, self.basecamp_id, username, password)
-        return self._basecamp_project
+        api_url = Project.extract_basecamp_api_url(self.basecamp_url)
+        username, password = Project.get_credentials_for(api_url)
 
-    @property
-    def basecamp_credentials(self):
-        from django.conf import settings
-        return settings.BASEBOARD_CREDENTIALS[self.basecamp_api_url]
+        return self.BasecampProject(api_url, self.basecamp_id, username, password)
+        #return self._basecamp_project
+
+    def detect_name(self):
+        """Fetches name from Basecamp."""
+        self.name = self.basecamp_project.name
+        return self.name
 
     @property
     def summary(self):

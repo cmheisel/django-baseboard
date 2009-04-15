@@ -99,23 +99,20 @@ class ProjectUnitTests(BaseboardTestHelper):
         
         for basecamp_id, test_cases in tests.items():
             for case in test_cases:
-                p = self.create_project(save=False, basecamp_id=None)
-                p.basecamp_url = case
-                p.detect_basecamp_id()
-                msg = "%s != %s Test case: %s" % (p.basecamp_id, basecamp_id, case)
-                self.assertEqual(p.basecamp_id, basecamp_id, msg)
+                actual = Project.extract_basecamp_id(case)
+                msg = "%s != %s Test case: %s" % (basecamp_id, actual, case)
+                self.assertEqual(basecamp_id, actual, msg)
 
     def test_basecamp_api_url(self):
         tests = {
             'https://foo.updatelog.com/': self.url_parsing_tests['valid'],
             'http://foo.updatelog.com/': ['http://foo.updatelog.com/projects/8130456/', ],
-            None: self.url_parsing_tests['invalid'],
         }
         for domain, test_cases in tests.items():
             for case in test_cases:
-                p = self.create_project(save=False, basecamp_id=None)
-                p.basecamp_url = case
-                self.assertEqual(domain, p.basecamp_api_url)
+                actual = Project.extract_basecamp_api_url(case)
+                msg = "%s != %s for test case %s" % (domain, actual, case)
+                self.assertEqual(domain, actual, msg)
 
     def test_name_detection(self):
         """If no name is provided, it should be loaded from Basecamp."""
