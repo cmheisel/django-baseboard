@@ -30,6 +30,9 @@ class Project(models.Model):
     
     BasecampProject = BasecampProject
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
@@ -154,6 +157,9 @@ class Dashboard(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
     projects = models.ManyToManyField(Project, related_name="dashboards")
+
+    class Meta:
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name
