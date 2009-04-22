@@ -1,0 +1,6 @@
+django-baseboard
+================
+
+Dashboards that contain summaries of projects in Basecamp.
+
+Depends on the basecampreporting and simplejson libraries.
