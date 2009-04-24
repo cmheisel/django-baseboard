@@ -24,7 +24,8 @@ class BaseboardTestHelper(TestCase):
         result = random.randint(0, max)
 
         if len(self.object_indexes) >= max:
-            raise Exception("You've run out of unqiue object indexes. Try raising max: %s" % max)
+            raise Exception("""You've run out of unqiue object indexes. 
+                    Try raising max: %s""" % max)
         
         if result not in self.object_indexes:
             #We've got a live one here
@@ -43,13 +44,15 @@ class BaseboardTestHelper(TestCase):
         Project.BasecampProject = self._real_Basecamp    
 
     def create_project(self, save=True, **kwargs):
-        """Creates a Project instance, using valid test defaults unless overridden in **kwargs."""
+        """Creates a Project instance, using valid test 
+        defaults unless overridden in **kwargs."""
+
         index = self.object_index()
         if not kwargs:
             kwargs = dict(name = "Test Project %s" % index,
-                          slug = "test-project-%s" % index,
-                          basecamp_url = "https://foo.basecamphq.com/projects/%s/log" % index,
-                          basecamp_id = index)
+                slug = "test-project-%s" % index,
+                basecamp_url = "https://foo.basecamphq.com/projects/%s/log" % index,
+                basecamp_id = index)
         p = Project(**kwargs)
 
         if not save: return p

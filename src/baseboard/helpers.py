@@ -1,3 +1,5 @@
+"""Common functions shared across the baseboard project."""
+
 from baseboard.models import Project
 
 def update_summaries(debug):
@@ -5,16 +7,17 @@ def update_summaries(debug):
     problems = []
     errors = []
     
-    for p in Project.objects.all():
+    for proj in Project.objects.all():
         try:
             if debug == 2:
-                print "Updating %s (%s)" % (p.name, p.id)
-            p.update_summary()
-        except Exception, e:
+                print "Updating %s (%s)" % (proj.name, proj.id)
+            proj.update_summary()
+        except Exception, err:
             if debug == 2:
-                print "ERROR updating %s (%s)" % (p.name, p.id)
-            problems.append(e)
-            errors.append("Error updating %s (%s): %s" % (p, p.id, str(e)))
+                print "ERROR updating %s (%s)" % (proj.name, proj.id)
+            problems.append(err)
+            errors.append("Error updating %s (%s): %s" % 
+                    (proj, proj.id, str(err)))
 
     if errors and debug:
         print '\n'.join(errors)
