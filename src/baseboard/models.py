@@ -112,7 +112,8 @@ class Project(models.Model):
 
     def detect_name(self):
         """Fetches name from Basecamp."""
-        self.name = self.basecamp_project.name
+        if not self.name:
+            self.name = self.basecamp_project.name
         return self.name
 
     @property
