@@ -206,35 +206,6 @@ class BaseboardFunctionalTests(BaseboardTestHelper):
         self.assertContains(r, force_escape(p2.name))
         self.assertContains(r, d.projects.all()[0].get_absolute_url())
 
-    def test_dashboard_ordering(self):
-        """Dashboards should order by name, backlog items and
-        last changed at date.""" 
-        p1 = self.create_project(name="Alpha One")
-        p2 = self.create_project(name="Bravo Two")
-        p3 = self.create_project(name="Charlie Three")
-
-        dash = self.create_dashboard()
-        [dash.projects.add(p) for p in (p1, p2, p3)]
-
-        test_url = "/dashboard/" + dash.slug + "/%s"
-
-        r = self.client.get(test_url % '') #Default to name
-        self.assertStringOrder(r.content, ["Alpha", "Bravo", "Charlie"])
-
-    def assertStringOrder(self, content, expected_order):
-        """Checks if the strings in list expected_order
-        appear in that order in string content"""
-
-        for expected_string in expected_order:
-            next_index = expected_order.index(expected_string) + 1
-            try:
-                next_string = expected_order[next_index]
-                msg = "%s appeared before %s in: %s" % (expected_string, 
-                        next_string, content)
-                self.assert_(content.find(expected_string) < content.find(next_string), msg)
-            except IndexError:
-                pass
-
     def test_project_detail(self):
         test_url = "/project/%s/"
 
