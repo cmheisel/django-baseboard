@@ -213,7 +213,8 @@ class BaseboardFunctionalTests(BaseboardTestHelper):
 
 def runtests():
     import os
-    os.system("~/local/bin/python runtests.py")
+    cmd = "%s/../../bin/test" % (os.path.abspath(os.path.dirname(__file__)))
+    os.system(cmd)
 
 if __name__ == "__main__":
     runtests()
