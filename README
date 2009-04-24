@@ -4,3 +4,12 @@ django-baseboard
 Dashboards that contain summaries of projects in Basecamp.
 
 Depends on the basecampreporting and simplejson libraries.
+
+Changes in 0.2 (under development)
+----------------------------------
+* Project.project_url returns the Basecamp project's homepage URL (because Project.basecamp_url can be any valid URL within a project entered by a user) 
+
+
+Changes in 0.1
+--------------
+* Initial release
