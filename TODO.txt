@@ -1,3 +1,2 @@
-* Have cron job set a socket timeout value so it doesn't get stuck if the network/Basecamp takes a long time to respond
 * Add a "backlogs" view of a dashboard that only shows backlog info and orders by backlogged_items count
 * Add RSS feeds to projects and/or dashboards (suitable for Trac changelog feeds)
