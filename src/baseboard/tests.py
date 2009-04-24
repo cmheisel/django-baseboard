@@ -90,6 +90,12 @@ class ProjectUnitTests(BaseboardTestHelper):
         p.save()
         self.assert_(p.id)
 
+    def test_project_url(self):
+        p = self.create_project(basecamp_url="https://foo.updatelog.com/projects/2984915/companies")
+        
+        expected = "https://foo.updatelog.com/projects/2984915/project/log"
+        self.assertEqual(expected, p.project_url)
+
     def test_project_id_detection(self):
         """When given a proper URL it should be able to set it's project_id field."""
         tests = {

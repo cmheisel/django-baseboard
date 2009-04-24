@@ -90,6 +90,15 @@ class Project(models.Model):
             return settings.BASEBOARD_CREDENTIALS[api_url]
         except KeyError:
             return None
+    
+    @property
+    def project_url(self):
+        """Returns the Basecamp project homepage URL for a project.
+        (Because users can enter any URL from a project 
+        as self.basecamp_url)"""
+        
+        base_url = Project.extract_basecamp_api_url(self.basecamp_url)
+        return "%sprojects/%s/project/log" % (base_url, self.basecamp_id)
 
     @property
     def basecamp_project(self):
