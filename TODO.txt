@@ -1,3 +1,4 @@
 * Add a "error message" field to Project to store fetch errors 
 * Add a "backlogs" view of a dashboard that only shows backlog info and orders by backlogged_items count
 * Add RSS feeds to projects and/or dashboards (suitable for Trac changelog feeds)
+* Factor autotest and revised autoreload into their own project and add nice CLI
