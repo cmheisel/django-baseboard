@@ -1,9 +1,11 @@
-import random, pprint
+import random, pprint, os
+
+import feedparser
 
 from django.test import TestCase
 from django.template.defaultfilters import force_escape
 
-from baseboard.models import Project, Dashboard
+from baseboard.models import Project, Dashboard, RSSFeed
 from baseboard.mocks import TestBasecampProject
 
 class BaseboardTestHelper(TestCase):
@@ -213,6 +215,52 @@ class BaseboardFunctionalTests(BaseboardTestHelper):
         self.assertContains(r, force_escape(self.project.name))
         self.assertContains(r, self.project.description)
 
+class RSSFeedTests(BaseboardTestHelper):
+    _rss_fixtures = ('default.xml', )
+    _feeds = None
+
+    def setUp(self):
+        self.fixtures_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 
+                                          'fixtures')
+        if not self._feeds:
+            self._feeds = self._setup_test_feeds()
+        super(RSSFeedTests, self).setUp()
+
+    def _setup_test_feeds(self):
+        feeds = {}
+
+        for filename in self._rss_fixtures:
+            feeds[filename] = feedparser.parse(self._feed_fixture(filename))
+        return feeds
+
+    def create_feed(self, **kwargs):
+        save = kwargs.get('save', True)
+        if kwargs.has_key('save'):
+            del(kwargs['save'])
+
+        if kwargs.has_key('url'):
+            kwargs['url'] = self._feed_fixture(kwargs['url'])
+        
+        defaults = {
+            'url': self._feed_fixture('default.xml')
+        }
+        defaults.update(kwargs)
+        feed = RSSFeed(**defaults)
+
+        if save:
+            feed.save()
+            self.assert_(feed.id)
+        return feed
+
+    def _feed_fixture(self, filename):
+        return os.path.join(self.fixtures_path, filename)
+        
+    def test_parsing(self):
+        feed = self.create_feed()
+        self.assert_(feed.id)
+        self.assertEqual(feed.name, self._feeds['default.xml']['feed']['title'])
+        self.assert_(feed.parsed_at)
+        
 def runtests():
     import os
     cmd = "%s/../../bin/test" % (os.path.abspath(os.path.dirname(__file__)))

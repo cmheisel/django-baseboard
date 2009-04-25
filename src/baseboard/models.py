@@ -2,6 +2,8 @@
 import datetime, pprint
 import cPickle as pickle
 
+import feedparser
+
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -12,6 +14,51 @@ class InvalidBasecampUrl(Exception):
 
 class MissingCredentials(Exception):
     pass
+
+class RSSFeed(models.Model):
+    """Represents an RSS feed."""
+    url = models.URLField(verify_exists=True, unique=True, max_length=255)
+    name = models.CharField(max_length=255)
+    feed_info = models.TextField(blank=True, editable=False)
+    feed_contents = models.TextField(blank=True, editable=False)
+    parsed_at = models.DateTimeField(editable=False, null=True) 
+
+    feedparser = feedparser
+
+    def update_feed(self, save=True):
+        parsed = self.feedparser.parse(self.url)
+        self.feed_contents = pickle.dumps(parsed['feed'])
+
+        info = {}
+        for key, value in parsed.items():
+            if key != 'feed':
+                info[key] = value
+        self.feed_info = pickle.dumps(info)
+        self.parsed_at = datetime.datetime.now()
+        if save:
+            self.save()
+
+    @property
+    def contents(self):
+        if not self.feed_contents:
+            return {}
+        return pickle.loads(self.feed_contents)
+
+    @property
+    def info(self):
+        if not self.feed_contents:
+            return {} 
+        return pickle.loads(self.feed_info)
+
+    def save(self, force_insert=False, force_update=False):
+        if self.info and self.contents:
+            pass #We've been parsed at least once
+        else:
+            self.update_feed(save=False)
+
+        if not self.name:
+            self.name = self.contents['title']
+        super(RSSFeed, self).save(force_insert, force_update)
 
 class Project(models.Model):
     """Represents a Basecamp-backed project"""

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>The Django weblog</title><link>http://www.djangoproject.com/weblog/</link><description>Latest news about Django, the Python Web framework.</description><language>en-us</language><lastBuildDate>Mon, 23 Mar 2009 19:26:46 -0500</lastBuildDate><item><title>Django 1.1 beta released
+</title><link>http://www.djangoproject.com/weblog/2009/mar/23/11-beta-1/</link><description>&lt;p&gt;As part of the Django 1.1 release process, tonight we've released Django 1.1 beta 1, a preview package that shows off the new features coming in Django 1.1. As with all alpha and beta packages, this is &lt;strong&gt;not&lt;/strong&gt; for production use, but if you'd like to try out some of the new goodies coming in 1.1, or if you'd like to pitch in and help us fix bugs before the final 1.1 release (due in April), feel free to grab a copy and give it a spin.&lt;/p&gt;
+
+&lt;p&gt;You can get a copy of the 1.1 beta package from &lt;a href="/download/"&gt;our downloads page&lt;/a&gt;, and we recommend you read &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.1-beta-1/"&gt;the release notes&lt;/a&gt;. Also, for the security conscious, signed MD5 and SHA1 checksums of the 1.1 beta package &lt;a href="http://media.djangoproject.com/pgp/Django-1.1-beta-1.checksum.txt"&gt;are available&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our next stop will be &lt;a href="/weblog/2009/feb/20/pycon/"&gt;the 2009 US PyCon in Chicago&lt;/a&gt; where, among other things, we'll be running development sprints targeted at producing the final Django 1.1 release. For a full 1.1 roadmap, see the 1.1 alpha release notes.&lt;/p&gt;
+</description><pubDate>Mon, 23 Mar 2009 19:26:46 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2009/mar/23/11-beta-1/</guid></item><item><title>Django 1.1 alpha 1 released
+</title><link>http://www.djangoproject.com/weblog/2009/feb/23/11-alpha-1/</link><description>&lt;p&gt;As part of the Django 1.1 release process, tonight we've released Django 1.1 alpha 1, a preview/testing package that gives a little taste of some of the new features coming in Django 1.1. As with all alpha and beta packages, this is &lt;strong&gt;not&lt;/strong&gt; for production use, but if you'd like to try out some of the new goodies coming in 1.1, or if you'd like to pitch in and help us fix bugs before the final 1.1 release (due in April), feel free to grab a copy and give it a spin.&lt;/p&gt;
+
+&lt;p&gt;You can get a copy of the 1.1 alpha package from &lt;a href="/download/"&gt;our downloads page&lt;/a&gt;, and we recommend you read &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.1-alpha-1/"&gt;the release notes&lt;/a&gt;. Also, for the security conscious, signed MD5 and SHA1 checksums of the 1.1 alpha package &lt;a href="http://media.djangoproject.com/pgp/Django-1.1-alpha-1.checksum.txt"&gt;are available&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our next stop will be &lt;a href="/weblog/2009/feb/20/pycon/"&gt;the 2009 US PyCon in Chicago&lt;/a&gt; where, among other things, we'll be running development sprints targeted at producing a feature-frozen 1.1 beta package (for a full 1.1 roadmap, see the 1.1 alpha release notes).&lt;/p&gt;
+</description><pubDate>Mon, 23 Feb 2009 20:59:17 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2009/feb/23/11-alpha-1/</guid></item><item><title>PyCon 2009
+</title><link>http://www.djangoproject.com/weblog/2009/feb/20/pycon/</link><description>&lt;p&gt;
+It's almost spring, and you know what that means: &lt;a href="http://us.pycon.org/2009/"&gt;PyCon&lt;/a&gt; is here! Early-bird registration ends soon, so take advantage of the low prices and &lt;a href="http://us.pycon.org/2009/registration/"&gt;register&lt;/a&gt; now!
+&lt;/p&gt;
+&lt;p&gt;
+PyCon's consistently among the best technical conferences in the world. The conference is chock-full of &lt;a href="http://us.pycon.org/2009/conference/schedule/"&gt;interesting talks about everything Python&lt;/a&gt;, and the unofficial parts of the conference (the "hallway track," &lt;a href="http://us.pycon.org/2009/openspace/"&gt;open spaces&lt;/a&gt;, &lt;a href="http://us.pycon.org/2009/sprints/"&gt;sprints&lt;/a&gt;, etc.) are even better.
+&lt;/p&gt;
+&lt;p&gt;
+As with previous years, Django will be very well represented at PyCon.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="http://b-list.org/"&gt;James Bennett&lt;/a&gt; and I will be teaching a tutorial, &lt;a href="http://us.pycon.org/2009/tutorials/schedule/1PM2/"&gt;Django in the Real World&lt;/a&gt;, covering all the stuff you need to do &lt;em&gt;after&lt;/em&gt; you've written your app. The tutorial's filling up, so if you're interested I recommend registering soon.
+&lt;/p&gt;
+&lt;p&gt;
+New to PyCon 2009 are &lt;a href="http://us.pycon.org/2009/conference/keynotes/"&gt;invited speakers&lt;/a&gt;: a select group of fantastic Python speakers invited to drop some knowledge. Adrian is one of the invited speakers, and he'll be giving us all a look behind the scenes of &lt;a href="http://everyblock.com/"&gt;EveryBlock.com&lt;/a&gt;. I'm really looking forward to this!
+&lt;/p&gt;
+&lt;p&gt;
+Then there's a whopping &lt;em&gt;nine&lt;/em&gt; &lt;a href="http://us.pycon.org/2009/conference/talks/?filter=django"&gt;talks covering Django&lt;/a&gt;, including talks on &lt;a href="http://us.pycon.org/2009/conference/schedule/event/P27/"&gt;Pinax&lt;/a&gt;, &lt;a href="http://us.pycon.org/2009/conference/schedule/event/P53/"&gt;Google App Engine&lt;/a&gt;, &lt;a href="http://us.pycon.org/2009/conference/schedule/event/P101/"&gt;Django on Jython&lt;/a&gt;, a panel discussing &lt;a href="http://us.pycon.org/2009/conference/schedule/event/P25/"&gt;ORM design&lt;/a&gt;, and a talk with what has to be the most awesome title ever: &lt;a href="http://us.pycon.org/2009/conference/schedule/event/P17/"&gt;Searching for Neutrinos Using Python at the Bottom of the World&lt;/a&gt;.`
+&lt;/p&gt;
+&lt;p&gt;
+Adrian and I will also deliver a "State of Django" talk discussing where the project is, and where it's going.
+&lt;/p&gt;
+&lt;p&gt;
+Finally, after the talks end, the annual &lt;a href="http://us.pycon.org/2009/sprints/projects/django/"&gt;development sprint&lt;/a&gt; begins: four solid days of hacking! Anyone interested in working on Django is encouraged to attend, and note that the sprints at PyCon are open to anyone, not just PyCon attendees. So, if you're in Chicago feel free to stop on by!
+&lt;/p&gt;
+&lt;p&gt;
+Early-bird registration ends in just a couple of days, so make sure to &lt;a href="http://us.pycon.org/2009/registration/"&gt;register&lt;/a&gt; soon to take advantage of the discounts!
+&lt;/p&gt;
+&lt;p&gt;
+Hope to see lots of Djangonauts there!
+&lt;/p&gt;
+</description><pubDate>Fri, 20 Feb 2009 13:15:33 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2009/feb/20/pycon/</guid></item><item><title>EuroDjangoCon 2009
+</title><link>http://www.djangoproject.com/weblog/2009/feb/11/eurodjangocon/</link><description>&lt;p&gt;
+I think most people have already seen the news, but &lt;a href="http://euro.djangocon.org/"&gt;EuroDjangoCon 2009&lt;/a&gt; is a go! &lt;a href="http://djangocon.org"&gt;DjangoCon 2008&lt;/a&gt; was such a blast that we're doing it again, this time in Europe.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="http://euro.djangocon.org/"&gt;EuroDjangoCon 2009&lt;/a&gt; will be held in Prague, Czech Republic from May 4th to May 6th. The conference will be followed by two days of development sprints (May 7th and 8th).
+&lt;/p&gt;
+&lt;p&gt;
+Robert Lofthouse is once again the organizer and conference chair; he's got an awesome set of speakers lined up. Keynoters will be Blaine Cook (Osmosoft), Joe Stump (Digg), Leah Culver (Six Apart), and (ahem) yours truly.&lt;/p&gt; &lt;p&gt;&lt;a href="http://eurodjangocon.eventbrite.com/"&gt;Tickets are now on sale&lt;/a&gt;, and you can find out all the rest of the details over at &lt;a href="http://euro.djangocon.org/"&gt;http://euro.djangocon.org/&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;Hope to see you there!&lt;/p&gt;
+
+</description><pubDate>Wed, 11 Feb 2009 15:20:00 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2009/feb/11/eurodjangocon/</guid></item><item><title>Django 1.0.2 released
+</title><link>http://www.djangoproject.com/weblog/2008/nov/18/102/</link><description>&lt;p&gt;Shortly after last week's &lt;a href="http://www.djangoproject.com/weblog/2008/nov/15/101/"&gt;Django 1.0.1 release&lt;/a&gt;, several people noted that the packaging script used to produce the release omitted several directories from the Django source tree; mostly this affected some unit tests, but at least one of the omitted directories affected the use of Django itself (specifically, of &lt;code&gt;django.contrib.gis&lt;/code&gt;). So tonight we're issuing Django 1.0.2, which is built around an updated packaging script and should resolve these problems.&lt;/p&gt;
+
+&lt;p&gt;This is a recommended upgrade for anyone using or targeting Django 1.0 or Django 1.0.1; to obtain a copy, swing by &lt;a href="/download/"&gt;the downloads page&lt;/a&gt;, and don't forget to read &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.0.2/"&gt;the release notes&lt;/a&gt;. For the security conscious, &lt;a href="http://media.djangoproject.com/pgp/Django-1.0.2-final.checksum.txt"&gt;a signed file containing the package's checksums&lt;/a&gt; is, as always, available.&lt;/p&gt;
+</description><pubDate>Tue, 18 Nov 2008 23:52:39 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/nov/18/102/</guid></item><item><title>Django 1.0.1 released!
+</title><link>http://www.djangoproject.com/weblog/2008/nov/15/101/</link><description>&lt;p&gt;Following &lt;a class="reference external" href="/weblog/2008/oct/24/upcoming-releases/"&gt;the previously-announced schedule&lt;/a&gt;, today the Django team
+has released Django 1.0.1. This is a bugfix-only release containing fixes and improvements to the Django 1.0 codebase, and is a recommended upgrade for anyone using or targeting Django 1.0.&lt;/p&gt;
+
+&lt;p&gt;For full details, check out &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.0.1/"&gt;the 1.0.1 release notes&lt;/a&gt;, and to grab a copy of Django 1.0.1, visit &lt;a href="/download/"&gt;the downloads page&lt;/a&gt;. For the security-conscious, &lt;a href="http://media.djangoproject.com/pgp/Django-1.0.1-final.checksum.txt"&gt;a file containing checksums of the 1.0.1 package&lt;/a&gt;, signed with the release manager's key, is available.&lt;/p&gt;
+
+&lt;p&gt;And with Thanksgiving coming up in the US, your friendly local release manager would like to pause for a moment and express thanks, on behalf of myself and the Django development team, for all the work put in by all the members of our community to help keep the releases coming, the tickets triaged and the bugs fixed. We wouldn't be able to do it without all of you, so give yourselves a big pat on the back and see if you can't sneak an extra slice of pie come Thanksgiving dinner.&lt;/p&gt;
+
+&lt;p&gt;We'll see you again in a few months, for either Django 1.0.2 or Django 1.1. Happy holidays!&lt;/p&gt;
+</description><pubDate>Sat, 15 Nov 2008 00:14:20 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/nov/15/101/</guid></item><item><title>Django 1.0.1 beta available
+</title><link>http://www.djangoproject.com/weblog/2008/oct/31/101-beta/</link><description>&lt;p&gt;Following &lt;a class="reference external" href="/weblog/2008/oct/24/upcoming-releases/"&gt;the previously-announced schedule&lt;/a&gt;, today the Django team
+has released &lt;a href="http://www.djangoproject.com/download/1.0.1-beta-1/tarball/"&gt;Django 1.0.1 beta 1&lt;/a&gt;; this is a preview of the upcoming
+Django 1.0.1 release, which consists solely of bugfixes and other
+improvements to the Django 1.0 codebase. This package also follows
+&lt;a class="reference external" href="http://docs.djangoproject.com/en/dev/misc/api-stability/"&gt;our policy of maintaining compatibility&lt;/a&gt; in the 1.0 release series.&lt;/p&gt;
+
+&lt;p&gt;Though it's labeled a &amp;quot;beta&amp;quot;, this package is considered to be of
+production quality; we're releasing it as a preview of Django 1.0.1,
+and the primary goal of this package is to give users of Django 1.0 an
+idea of what's been fixed in the codebase since the 1.0 release. If
+there's a particular issue you're interested in which &lt;strong&gt;doesn't&lt;/strong&gt; seem
+to be resolved in Django 1.0.1 beta, please consider helping the
+Django team to fix it by working to develop a patch (see &lt;a class="reference external" href="http://docs.djangoproject.com/en/dev/internals/contributing/#patch-style"&gt;the
+contribution guidelines&lt;/a&gt; for details); Django 1.0.1 is currently
+scheduled for release on November 14, 2008, which provides a roughly
+two-week window for submitting patches (and please keep in mind that
+patches intended for inclusion in 1.0.1 should be against &lt;a class="reference external" href="http://code.djangoproject.com/browser/django/branches/releases/1.0.X"&gt;the 1.0.X
+branch&lt;/a&gt; and not trunk).&lt;/p&gt;
+
+&lt;p&gt;As such, this release is mostly of interest to developers who want to help out with the Django development process; the final Django 1.0.1 release next month, however, will be a recommended upgrade for all users of Django 1.0.&lt;/p&gt;
+
+&lt;p&gt;Also, this beta release does not contain release notes, as there are
+no new features, only bugfixes. When the final Django 1.0.1 release is
+issued next month, a list of resolved issues since 1.0 will be
+included in lieu of release notes.&lt;/p&gt;
+&lt;p&gt;For verification purposes, &lt;a class="reference external" href="http://media.djangoproject.com/pgp/Django-1.0.1-beta-1.checksum.txt"&gt;a file containing the MD5 and SHA1
+checksums&lt;/a&gt; of the 1.0.1 beta package has been placed on the
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;djangoproject.com&lt;/span&gt;&lt;/tt&gt; server. The file is PGP-signed with the Django
+release manager's key; this key has the ID 0x8C8B2AE1 and can be
+obtained from, e.g., &lt;a class="reference external" href="http://pgp.mit.edu:11371/pks/lookup?op=get&amp;amp;search=0x8C8B2AE1"&gt;the MIT PGP keyserver&lt;/a&gt;.&lt;/p&gt;
+</description><pubDate>Fri, 31 Oct 2008 18:15:58 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/oct/31/101-beta/</guid></item><item><title>Upcoming Django releases
+</title><link>http://www.djangoproject.com/weblog/2008/oct/24/upcoming-releases/</link><description>&lt;p&gt;With Django 1.0 out the door and a successful inaugural DjangoCon
+behind us, it's time to look ahead to the future, which includes two
+releases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Django 1.1, currently targeted for release in March 2009.&lt;/li&gt;
+&lt;li&gt;Django 1.0.1, currently targeted for release next month.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both of these releases, of course, will follow &lt;a href="http://docs.djangoproject.com/en/dev/misc/api-stability/"&gt;our policy of maintaining compatibility&lt;/a&gt; in the 1.0 release series.&lt;/p&gt;
+
+&lt;h4&gt;Django 1.1 timeline&lt;/h4&gt;
+
+&lt;p&gt;At the moment, we're aiming to release Django 1.1 on or around March
+16, 2009, or roughly six months following the release of Django
+1.0. As covered in our &lt;a href="http://docs.djangoproject.com/en/dev/internals/release-process/#release-cycle"&gt;release process documentation&lt;/a&gt;, the 1.1
+release cycle will consist of three phases: feature proposal, feature
+work and bugfixing/polishing. Since Django 1.1 is happening on a
+six-month schedule, that means two months for each phase of
+development; the relevant dates for 1.1 have already been discussed on
+&lt;a href="http://groups.google.com/group/django-developers/browse_thread/thread/cc173bd82a767182/"&gt;the django-developers mailing list&lt;/a&gt;, but here's the quick breakdown
+(these dates are still rough estimates, and may change as needed):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;November 10, 2008:&lt;/strong&gt; A draft feature list for 1.1 will be posted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;November 15, 2008:&lt;/strong&gt; The 1.1 feature list will be finalized, and
+no new feature proposals will be accepted for 1.1.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;January 15, 2009:&lt;/strong&gt; All major features must be merged into Django
+trunk, trunk will go into the initial 1.1 feature freeze and work
+will shift to bugfixes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;March 16, 2009:&lt;/strong&gt; Django 1.1 will be released. As with 1.0, Django
+1.1 will be preceded by several pre-release packages to help focus
+development effort and isolate bugs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;March is still quite a ways off, of course, but keep in mind that the
+feature-proposal window will be closing in a couple of weeks; if
+there's something you'd really like to see in Django 1.1 and you
+haven't already started a discussion of it on the django-developers
+list, you'll want to do so quickly.&lt;/p&gt;
+
+
+&lt;h4&gt;Django 1.0.1 timeline&lt;/h4&gt;
+
+&lt;p&gt;In the much more immediate future, we're preparing to release Django
+1.0.1, which will consist solely of bugfixes and similar improvements
+to the Django 1.0 codebase. Django 1.0.1 will be a recommended upgrade
+for anyone who's currently using or migrating to Django 1.0.&lt;/p&gt;
+
+&lt;p&gt;Because 1.0.1 will only involve bugfixes, with no feature additions to
+propose or test, the release process for it will be somewhat
+abbreviated. Here are the key dates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;October 31, 2008:&lt;/strong&gt; Django 1.0.1 beta. Though it will be called a
+"beta" release, this will mainly serve as a preview of 1.0.1, and
+will be production-quality; its primary purpose will be to give
+folks an idea of what's been fixed since the 1.0 release and a last
+opportunity to submit patches for any fixes they'd like to see make
+into into 1.0.1 final.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;November 14, 2008:&lt;/strong&gt; Django 1.0.1 will be released.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;From an administrative perspective, the 1.0.1 release will &lt;strong&gt;not&lt;/strong&gt;
+involve any special categorization or milestones in the ticket
+tracker; with a release of this type, administrivia in Trac is far less
+important than simple working code, and any bug is a candidate for
+fixing up until the day of the release. So if there's a particular
+issue you'd like to see solved for 1.0.1, the best way to ensure the
+fix makes it into the release is to provide a working patch. As
+always, preferential treatment will be given to patches which match
+&lt;a href="http://docs.djangoproject.com/en/dev/internals/contributing/#patch-style"&gt;our contribution guidelines&lt;/a&gt;, especially to patches which include
+unit tests that both demonstrate the bug and demonstrate the success
+of the solution. Also, remember that patches for 1.0.1 should be
+created against &lt;a href="http://code.djangoproject.com/browser/django/branches/releases/1.0.X"&gt;the 1.0.X release branch&lt;/a&gt;, rather than against
+trunk.&lt;/p&gt;
+</description><pubDate>Fri, 24 Oct 2008 15:37:28 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/oct/24/upcoming-releases/</guid></item><item><title>Django 1.0 released!
+</title><link>http://www.djangoproject.com/weblog/2008/sep/03/1/</link><description>&lt;p&gt;No, you&amp;#8217;re not hallucinating, it&amp;#8217;s really here.&lt;/p&gt;
+
+&lt;p&gt;Around three years ago, Adrian, Simon, Wilson and I released some code to the
+world. Our plan was to hack quietly on it for a bit, release a solid 1.0
+release, and then &lt;em&gt;really&lt;/em&gt; get the ball rolling.&lt;/p&gt;
+
+&lt;p&gt;Well.&lt;/p&gt;
+
+&lt;p&gt;What happened, of course, was that an amazing community sprung up literally
+overnight &amp;#8212; our IRC channel had over a hundred people in it the day after
+release, and it&amp;#8217;s never been that &amp;#8220;empty&amp;#8221; since.&lt;/p&gt;
+
+&lt;p&gt;I really can&amp;#8217;t stress enough how amazing our community of users and developers
+are. About half of the code that&amp;#8217;s gone into Django over the past three years
+has been contributed by someone &lt;em&gt;other&lt;/em&gt; than a core committer. Since our last
+stable release, we&amp;#8217;ve made over 4,000 code commits, fixed more than 2,000 bugs,
+and edited, added, or removed around 350,000 lines of code. We&amp;#8217;ve also added
+40,000 lines of new documentation, and greatly improved what was already there.&lt;/p&gt;
+
+&lt;p&gt;Django 1.0 represents a the largest milestone in Django&amp;#8217;s development to date: a
+web framework that a group of perfectionists can truly be proud of. Without this
+amazing community, though, it would have never happened.&lt;/p&gt;
+
+&lt;p&gt;You can download Django 1.0 on the &lt;a href="http://www.djangoproject.com/download/"&gt;Django downloads
+page&lt;/a&gt;, and read the &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.0/"&gt;complete release
+notes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For distributors and for verification purposes, a file containing the MD5 and
+SHA1 checksums of the 1.0 package has been placed on &lt;a href="http://media.djangoproject.com/pgp/Django-1.0.checksum.txt"&gt;the djangoproject.com
+server&lt;/a&gt;. This file
+is PGP-signed with the Django release manager&amp;#8217;s public key. This key has the ID
+0x8C8B2AE1 and can be obtained from, e.g., the &lt;a href="http://pgp.mit.edu:11371/pks/lookup?op=get&amp;amp;search=0x8C8B2AE1"&gt;MIT PGP
+keyserver&lt;/a&gt;.&lt;/p&gt;
+
+</description><pubDate>Wed, 03 Sep 2008 19:05:00 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/sep/03/1/</guid></item><item><title>Django 1.0 release candidate now available
+</title><link>http://www.djangoproject.com/weblog/2008/sep/02/10-rc1/</link><description>&lt;p&gt;In accordance with &lt;a href="http://code.djangoproject.com/wiki/VersionOneRoadmap#schedule"&gt;the (updated) Django 1.0 release roadmap&lt;/a&gt;, today we've released the first release candidate for Django 1.0.&lt;/p&gt;
+
+&lt;p&gt;To grab a copy of the release candidate, head over to &lt;a href="http://www.djangoproject.com/download/"&gt;the Django downloads page&lt;/a&gt;, and be sure to read &lt;a href="http://docs.djangoproject.com/en/dev/releases/1.0/"&gt;the release notes&lt;/a&gt;. Please keep in mind, though, that this release &lt;b&gt;is not meant for production use&lt;/b&gt;, and is intended primarily for developers who are interested in checking out the new features in 1.0 and helping to identify and resolve bugs prior to the final release. The 1.0 alpha and beta releases and release candidates will not receive long-term support and will not be updated with security fixes, since their main purpose is to serve as a stepping-stone on the path to the final Django 1.0, due to be released as soon as possible..&lt;/p&gt;
+
+&lt;p&gt;For distributors and for verification purposes, a file containing the MD5 and SHA1 checksums of the release candidate package has been &lt;a href="http://media.djangoproject.com/pgp/Django-1.0-rc_1.checksum.txt"&gt;placed on the djangoproject.com server&lt;/a&gt;. This file is PGP-signed with the Django release manager's public key. This key has the ID 0x8C8B2AE1 and can be obtained from, e.g., &lt;a href="http://pgp.mit.edu:11371/pks/lookup?op=get&amp;search=0x8C8B2AE1"&gt;the MIT PGP keyserver&lt;/a&gt;.&lt;/p&gt;
+
+
+</description><pubDate>Tue, 02 Sep 2008 19:40:00 -0500</pubDate><guid>http://www.djangoproject.com/weblog/2008/sep/02/10-rc1/</guid></item></channel></rss>
