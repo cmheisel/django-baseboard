@@ -260,7 +260,7 @@ class RSSFeedTests(BaseboardTestHelper):
         self.assert_(feed.id)
         self.assertEqual(feed.name, self._feeds['default.xml']['feed']['title'])
         self.assert_(feed.parsed_at)
-        
+    
 def runtests():
     import os
     cmd = "%s/../../bin/test" % (os.path.abspath(os.path.dirname(__file__)))
