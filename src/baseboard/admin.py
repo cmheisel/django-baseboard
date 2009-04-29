@@ -61,6 +61,7 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 
 class FeedAdmin(admin.ModelAdmin):
-    pass
+    list_display=('name', 'url')
+    
 admin.site.register(RSSFeed, FeedAdmin)
 
