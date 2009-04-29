@@ -9,6 +9,7 @@ class DashboardAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     filter_horizontal = ('projects', )
     list_display = ('name', 'description', '_project_count')
+    search_fields = ('name', 'description')
 
     def _project_count(self, dash):
         return dash.projects.count()
@@ -44,6 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display=('name', 'updated_at', 'basecamp_updated_at', '_dashboard_count')
     list_filter=('updated_at', 'basecamp_updated_at')
     filter_horizontal=('feeds', )
+    search_fields=('name', 'description')
     fieldsets = (
         (None, {
             'fields': ("basecamp_url", "basecamp_id", "description", "name", "slug", "feeds"),
@@ -62,6 +64,7 @@ admin.site.register(Project, ProjectAdmin)
 
 class FeedAdmin(admin.ModelAdmin):
     list_display=('name', 'url')
+    search_fields = ('name', 'url')
     
 admin.site.register(RSSFeed, FeedAdmin)
 
