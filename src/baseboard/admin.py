@@ -52,7 +52,7 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         ('Advanced options', {
             'classes': ('collapse', ),
-            'fields': ('readable_summary',),
+            'fields': ('readable_summary', 'update_error'),
         }),
     )
     

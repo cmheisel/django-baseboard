@@ -23,6 +23,7 @@ class RSSFeed(models.Model):
     feed_info = models.TextField(blank=True, editable=False)
     feed_contents = models.TextField(blank=True, editable=False)
     parsed_at = models.DateTimeField(editable=False, null=True) 
+    update_error = models.TextField(blank=True)
 
     feedparser = feedparser
 
@@ -76,12 +77,13 @@ class Project(models.Model):
     name = models.CharField(max_length=255, blank=True, help_text="This will be prefilled from the project if left blank.")
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
-    
+     
 
     basecamp_updated_at = models.DateTimeField(editable=False, null=True)
     description = models.TextField(blank=True, help_text="A brief summary of the project and it's goals.")
     summary_data = models.TextField(blank=True, editable=False)
     readable_summary = models.TextField(blank=True)
+    update_error = models.TextField(blank=True)
 
     feeds = models.ManyToManyField(RSSFeed, related_name="projects")
 
