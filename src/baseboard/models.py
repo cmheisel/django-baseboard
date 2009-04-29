@@ -32,11 +32,11 @@ class RSSFeed(models.Model):
 
     def update_feed(self, save=True):
         parsed = self.feedparser.parse(self.url)
-        self.feed_contents = pickle.dumps(parsed['feed'])
+        self.feed_contents = pickle.dumps(parsed['entries'])
 
         info = {}
         for key, value in parsed.items():
-            if key != 'feed':
+            if key != 'entries':
                 info[key] = value
         self.feed_info = pickle.dumps(info)
         self.parsed_at = datetime.datetime.now()
@@ -65,7 +65,7 @@ class RSSFeed(models.Model):
             self.update_feed(save=False)
 
         if not self.name:
-            self.name = self.contents['title']
+            self.name = self.info['feed']['title']
         super(RSSFeed, self).save(force_insert, force_update)
 
 class Project(models.Model):
