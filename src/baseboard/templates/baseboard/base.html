@@ -3,27 +3,130 @@
 <html>
 <head>
   <title>{% block title %}{% endblock %}Base(camp)(dash)Boards</title>
-  
+
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css">
+
   {% block extra_head %}
   {% endblock %}
-  
+
+  <style type="text/css">
+    body {
+    font-family: helvetica, arial, sans-serif;
+    color: #333;
+    }
+
+    strong {
+    color: #333;
+    font-weight: bold;
+    }
+
+    h1 {
+    font-weight: bold;
+    color: #000;
+    font-size: 2em;
+    margin-bottom: .8em;
+    }
+
+    h2 {
+    font-weight: normal;
+    color: #000;
+    font-size: 1.8em;
+    margin-bottom: .4em;
+    }
+
+    h2 + p {
+    margin-top: -.8em;
+    }
+
+    ul {
+    margin-bottom: 1em;
+    }
+
+    ul li {
+    list-style: disc inside none;
+    }
+
+    #navigation h2 {
+    visibility: hidden;
+    }
+
+    p {
+    margin-bottom: 1em;
+    }
+
+    .project_recap {
+    margin-bottom: 1.5em;
+    }
+
+    .project_recap ul li.summary {
+    list-style: none;
+    }
+
+    h3 {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.3em;
+    }
+
+    div.project_stale ul li.summary {
+    background-color: #ccc;
+    }
+
+    div.project_late ul li.summary {
+    background-color: #4F1712;
+    color: white;
+    font-weight: bold;
+    }
+    div.project_late ul li.summary a {
+    color: white;
+    }
+
+    #hd {
+    text-align: right;
+    }
+
+    #hd h1 + p {
+    margin-top: -2em;
+    }
+  </style>
 </head>
 
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
 
-<h1>{% block application_title %}Base(camp)(dash)Boards{% endblock %}</h1>
+<div id="doc" class="yui-t4">
+   <div id="hd" role="banner">
+     <h1>{% block application_title %}BaseBoards{% endblock %}</h1>
+     <p>Dashboards powered by Basecamp</p>
+   </div><!-- /#hd -->
 
-<div id="menu">
-  {% block menu %}{% endblock %}
-</div> <!-- end menu div -->
+   <div id="bd" role="main">
+     <div id="yui-main">
+       <div class="yui-b">
+	 <div class="yui-g">
+	   <!-- YOUR DATA GOES HERE -->
+	   
+	   <h2>{% block content_title %}{% endblock %}</h2>
+           <p>{% block content_description %}{% endblock %}</p>
 
-<div id="{% block content_id %}content{% endblock %}" class="{% block content_classes %}{% endblock %}">
-  <h2>{% block content_title %}{% endblock %}</h1>
-  <p>{% block content_description %}{% endblock %}
+	   {% block content %}
+	   {% endblock %}
 
-  {% block content %}
-  {% endblock %}
-</div> <!-- end content div -->
+	 </div> <!--/.yui-g -->
+       </div> <!--/.yui-b -->
+     </div> <!-- /#yui-main -->
+	
+     <div id="navigation" class="yui-b"><!-- YOUR NAVIGATION GOES HERE -->
+       <h2>Navigation</h2>
+       {% block menu %}{% endblock %}
+     </div><!--/navigation -->
+	
+   </div> <!--/#bd -->
+
+   <div id="ft" role="contentinfo">
+     {% block footer %}{% endblock %}
+   </div> <!--/#ft -->
+
+</div> <!--/#doc -->
 
 </body>
 </html>

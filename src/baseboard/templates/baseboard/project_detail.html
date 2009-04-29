@@ -5,7 +5,18 @@
 {% endblock %} 
 
 {% block menu %}
-<p>Dashboards: {% for dashboard in project.dashboards.all %}<a href="{{ dashboard.get_absolute_url }}">{{ dashboard.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+
+<h3>Dashboard{{ project.dashboards.count|pluralize }}</h3>
+{% for dashboard in project.dashboards.all %}
+{% if forloop.first %}
+<ul>
+{% endif %}
+<li><a href="{{ dashboard.get_absolute_url }}">{{ dashboard.name }}</a></li>
+{% if forloop.last %}
+</ul>
+{% endif %}
+{% endfor %}
+
 {% endblock %}
 
 {% block content_title %}
