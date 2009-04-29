@@ -81,4 +81,18 @@
   {% endfor %}
 {% endif %}
 
+{% for feed in project.feeds.all %}
+<h3>{{ feed.name }}</h3>
+    {% for item in feed.contents|slice:":10" %}
+        {% if forloop.first %}
+            <ul>
+        {% endif %}
+        <li>{{ item.title }}</a></li>
+        {% if forloop.last %}
+            <li><a href="{{ feed.info.feed.link }}">More..</a></li>
+            </ul>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
 {% endblock %}
