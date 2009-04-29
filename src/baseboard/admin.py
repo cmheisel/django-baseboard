@@ -3,7 +3,7 @@ from urllib2 import HTTPError
 from django.contrib import admin
 from django import forms
 
-from baseboard.models import Project, Dashboard
+from baseboard.models import Project, Dashboard, RSSFeed
 
 class DashboardAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
@@ -43,13 +43,14 @@ class ProjectAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     list_display=('name', 'updated_at', 'basecamp_updated_at', '_dashboard_count')
     list_filter=('updated_at', 'basecamp_updated_at')
+    filter_horizontal=('feeds', )
     fieldsets = (
         (None, {
-            'fields': ("basecamp_url", "basecamp_id", "description", "name", "slug"),
+            'fields': ("basecamp_url", "basecamp_id", "description", "name", "slug", "feeds"),
         }),
         ('Advanced options', {
             'classes': ('collapse', ),
-            'fields': ('readable_summary', ),
+            'fields': ('readable_summary',),
         }),
     )
     
@@ -58,3 +59,8 @@ class ProjectAdmin(admin.ModelAdmin):
     _dashboard_count.short_description = "Dashboard count"
     
 admin.site.register(Project, ProjectAdmin)
+
+class FeedAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(RSSFeed, FeedAdmin)
+

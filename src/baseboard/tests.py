@@ -220,8 +220,7 @@ class RSSFeedTests(BaseboardTestHelper):
     _feeds = None
 
     def setUp(self):
-        self.fixtures_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 
-                                          'fixtures')
+        self.fixtures_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'fixtures')
         if not self._feeds:
             self._feeds = self._setup_test_feeds()
         super(RSSFeedTests, self).setUp()
@@ -257,9 +256,14 @@ class RSSFeedTests(BaseboardTestHelper):
         
     def test_parsing(self):
         feed = self.create_feed()
-        self.assert_(feed.id)
-        self.assertEqual(feed.name, self._feeds['default.xml']['feed']['title'])
+        feed.update_feed()
         self.assert_(feed.parsed_at)
+        self.assert_(feed.contents)
+        self.assertEqual(None, feed.info.get('bozo_exception', None))
+        
+    def test_name_detection(self):
+        feed = self.create_feed(name=None)
+        self.assertEqual(feed.name, self._feeds['default.xml']['feed']['title'])
     
 def runtests():
     import os

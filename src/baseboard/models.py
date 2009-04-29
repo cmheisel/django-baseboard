@@ -9,6 +9,7 @@ from django.template.defaultfilters import slugify
 
 from basecampreporting.project import Project as BasecampProject
 
+
 class InvalidBasecampUrl(Exception):
     pass
 
@@ -24,6 +25,10 @@ class RSSFeed(models.Model):
     parsed_at = models.DateTimeField(editable=False, null=True) 
 
     feedparser = feedparser
+
+    class Meta:
+        verbose_name = "RSS Feed"
+
 
     def update_feed(self, save=True):
         parsed = self.feedparser.parse(self.url)
@@ -42,13 +47,16 @@ class RSSFeed(models.Model):
     def contents(self):
         if not self.feed_contents:
             return {}
-        return pickle.loads(self.feed_contents)
+        return pickle.loads(str(self.feed_contents))
 
     @property
     def info(self):
         if not self.feed_contents:
             return {} 
-        return pickle.loads(self.feed_info)
+        return pickle.loads(str(self.feed_info))
+
+    def __unicode__(self):
+        return self.name
 
     def save(self, force_insert=False, force_update=False):
         if self.info and self.contents:
@@ -74,7 +82,9 @@ class Project(models.Model):
     description = models.TextField(blank=True, help_text="A brief summary of the project and it's goals.")
     summary_data = models.TextField(blank=True, editable=False)
     readable_summary = models.TextField(blank=True)
-    
+
+    feeds = models.ManyToManyField(RSSFeed, related_name="projects")
+
     BasecampProject = BasecampProject
 
     class Meta:
