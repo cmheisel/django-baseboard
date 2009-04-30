@@ -1,2 +1,3 @@
 * Add a "backlogs" view of a dashboard that only shows backlog info and orders by backlogged_items count
 * Factor autotest and revised autoreload into their own project and add nice CLI
+* Convert feedparser dates into datetime objects, so they can be used with normal date template tags/filters
