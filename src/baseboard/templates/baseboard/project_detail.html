@@ -17,6 +17,11 @@
 {% endif %}
 {% endfor %}
 
+<!-- If user? -->
+{% if request.user.is_authenticated and request.user.is_staff %}
+    <p><a href="/admin/baseboard/project/{{ project.id }}/">Edit</a></p>
+{% endif %}
+
 {% endblock %}
 
 {% block content_title %}
@@ -85,7 +90,8 @@
 <h3>{{ feed.name }}</h3>
     {% for item in feed.contents|slice:":10" %}
         {% if forloop.first %}
-            <ul>
+        <ul>
+            {% if item.updated %}<li>Last update: {{ item.updated }}</li>{% endif %}
         {% endif %}
         <li>{{ item.title }}</a></li>
         {% if forloop.last %}
