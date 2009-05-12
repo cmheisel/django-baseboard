@@ -15,4 +15,7 @@ class Command(NoArgsCommand):
         verbosity = int(options.get('verbosity', 1))
         
         from baseboard.helpers import update_summaries
-        update_summaries(verbosity)
+        result = update_summaries(verbosity)
+        if not result:
+            return -1
+        return 0

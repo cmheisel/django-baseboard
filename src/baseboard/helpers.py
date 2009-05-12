@@ -21,6 +21,9 @@ def run_instance_update_method(queryset, method_name, debug, timeout=20):
             if debug == 2:
                 print "Updating %s" % (obj, )
             method()
+            if hasattr(obj, 'update_error'):
+                obj.update_error = ''
+                obj.save()
         except Exception, err:
             if hasattr(obj, 'update_error'):
                 obj.update_error = str(err)
@@ -38,7 +41,7 @@ def run_instance_update_method(queryset, method_name, debug, timeout=20):
         print '\n'.join(error_msgs)
         
     if exceptions:
-        raise exceptions[0]
+        return False
 
     return True
 

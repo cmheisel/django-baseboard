@@ -15,4 +15,7 @@ class Command(NoArgsCommand):
         verbosity = int(options.get('verbosity', 1))
         
         from baseboard.helpers import update_feeds
-        update_feeds(verbosity)
+        result = update_feeds(verbosity)
+        if not result:
+            return -1
+        return 0 
