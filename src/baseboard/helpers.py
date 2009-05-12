@@ -47,8 +47,8 @@ def run_instance_update_method(queryset, method_name, debug, timeout=20):
 
 def update_summaries(debug, timeout=20):
     """Calls update_summary on all Project objects in the database."""
-    run_instance_update_method(Project.objects.all(), 'update_summary', debug, timeout)
+    return run_instance_update_method(Project.objects.all(), 'update_summary', debug, timeout)
 
 def update_feeds(debug, timeout=20):
     """Calls update_feed on all RSSFeed objects in the database."""
-    run_instance_update_method(RSSFeed.objects.all(), 'update_feed', debug, timeout)
+    return run_instance_update_method(RSSFeed.objects.all(), 'update_feed', debug, timeout)
