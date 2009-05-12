@@ -85,7 +85,7 @@ class Project(models.Model):
     readable_summary = models.TextField(blank=True)
     update_error = models.TextField(blank=True)
 
-    feeds = models.ManyToManyField(RSSFeed, related_name="projects")
+    feeds = models.ManyToManyField(RSSFeed, related_name="projects", blank=True)
 
     BasecampProject = BasecampProject
 
