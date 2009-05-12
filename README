@@ -5,11 +5,17 @@ Dashboards that contain summaries of projects in Basecamp.
 
 Depends on the basecampreporting and simplejson libraries.
 
-Changes in 0.2 (under development)
-----------------------------------
+Changes in 0.3
+---------------
+* Better error handling and reporting for the management commands/cron jobs
+* Projects are no longer required to have an RSS feed foreign key (bugfix from 0.2)
+
+Changes in 0.2
+---------------
 * Project.project_url returns the Basecamp project's homepage URL (because Project.basecamp_url can be any valid URL within a project entered by a user) 
 * baseboard.helpers.update_summaries takes and honors a network timeout argument (defaults to 20 seconds)
+* Projects now have RSSFeed foreign keys -- suitable for displaying a Trac change log or a project blog, etc.
 
 Changes in 0.1
---------------
+---------------
 * Initial release
