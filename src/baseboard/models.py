@@ -8,7 +8,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from basecampreporting.project import Project as BasecampProject
-
+#Random comment
 
 class InvalidBasecampUrl(Exception):
     pass
@@ -39,8 +39,11 @@ class RSSFeed(models.Model):
         for key, value in parsed.items():
             if key != 'entries':
                 info[key] = value
-        self.feed_info = pickle.dumps(info)
-        self.parsed_at = datetime.datetime.now()
+        try:
+            self.feed_info = pickle.dumps(info)
+            self.parsed_at = datetime.datetime.now()
+        except pickle.UnpickleableError, err:
+            self.update_error = str(err)
         if save:
             self.save()
 
@@ -80,7 +83,7 @@ class Project(models.Model):
      
 
     basecamp_updated_at = models.DateTimeField(editable=False, null=True)
-    description = models.TextField(blank=True, help_text="A brief summary of the project and it's goals.")
+    description = models.TextField(blank=True, help_text="A brief summary of the project and its goals.")
     summary_data = models.TextField(blank=True, editable=False)
     readable_summary = models.TextField(blank=True)
     update_error = models.TextField(blank=True)
@@ -114,10 +117,6 @@ class Project(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('project_detail', (), { 'slug': self.slug })
-
-    @classmethod
-    def verify_basecamp_setup(cls, url):
-        print "Checking on %s" % url
 
     @classmethod
     def extract_basecamp_id(cls, basecamp_url):
@@ -238,5 +237,5 @@ class Dashboard(models.Model):
         return ('dashboard_detail', [], { 'slug': self.slug })
     
 if __name__ == "__main__":
-    import baseboard.tests
+    from baseboard import tests
     tests.runtests()
