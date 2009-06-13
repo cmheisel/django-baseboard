@@ -3,7 +3,7 @@ django-baseboard
 
 Dashboards that contain summaries of projects in Basecamp.
 
-Depends on the basecampreporting and simplejson libraries.
+Depends on the basecampreporting, simplejson and feedparser libraries.
 
 Changes in 0.3
 ---------------

@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "django-baseboard",
-    version = "0.1",
+    version = "0.3",
     url = 'http://github.com/cmheisel/django-baseboard',
     license = 'MIT',
     description = "Dashboard view across various Basecamp projects, powered by Django",
@@ -18,7 +18,7 @@ setup(
     packages = find_packages('src'),
     package_dir = {'': 'src'},
 
-    install_requires = ['setuptools', 'basecampreporting'],
+    install_requires = ['setuptools', 'basecampreporting', 'feedparser'],
 
     
     classifiers = [
